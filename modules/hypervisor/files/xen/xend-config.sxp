@@ -1,0 +1,27 @@
+# -*- sh -*-
+
+#
+# Xend configuration file.
+#
+
+(xend-http-server yes)
+(xend-unix-server yes)
+(xend-unix-path /var/lib/xend/xend-socket)
+
+(xend-address localhost)
+
+(xend-relocation-hosts-allow '^localhost$ ^localhost\\.localdomain$')
+
+(network-script network-bridge)
+
+(vif-script vif-bridge)
+
+
+(dom0-min-mem 256)
+
+(dom0-cpus 0)
+
+(vncpasswd '')
+
+(keymap 'en-us')
+
