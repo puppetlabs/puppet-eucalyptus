@@ -1,5 +1,0 @@
-[euca]
-name=Eucalyptus
-baseurl=http://www.eucalyptussoftware.com/downloads/repo/eucalyptus/$VERSION/yum/centos/
-enabled=1
-
