@@ -1,5 +1,5 @@
 class eucalyptus::cc () {
-  Class['eucalyptus'] -> Class[eucalptus::cc]
+  Class['eucalyptus'] -> Class[eucalyptus::cc]
   package { 'eucalyptus-cc':
     ensure => present,
   }
