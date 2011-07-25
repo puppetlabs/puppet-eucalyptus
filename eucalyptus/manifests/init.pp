@@ -26,10 +26,11 @@
 #
 
 class eucalyptus (
-  $version = '2.0',
-  $repourl = 'http://www.eucalyptussoftware.com/downloads/repo/eucalyptus/2.0.2/yum/centos/'
+  $version = '2.0.3'
+  
 )
 {
+  $repourl = inline_template("http://www.eucalyptussoftware.com/downloads/repo/eucalyptus/<%= version %>/yum/<%= operatingsystem.downcase %>/${architecture}")
   yumrepo { 'eucalyptus':
     descr => 'Eucalyptus Software',
     enabled => 1,
