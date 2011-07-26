@@ -45,7 +45,8 @@ class eucalyptus (
                     'dhcp',
                     'bridge-utils',
                     'scsi-target-utils',
-                    'httpd'] 
+                    'httpd',
+					'sudo'] 
     }
     default: {
       $packages = 'UNSET'
