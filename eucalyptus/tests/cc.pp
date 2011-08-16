@@ -1,0 +1,1 @@
+class { [euca, euca::cc]: }

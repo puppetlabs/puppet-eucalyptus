@@ -1,5 +1,1 @@
-node default {
-  class {
-    [ eucalyptus, eucalyptus::clc ]:
-  }
-}
+class { [ eucalyptus, eucalyptus::clc ]: }
