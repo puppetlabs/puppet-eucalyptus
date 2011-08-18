@@ -7,7 +7,7 @@ class eucalyptus::ntp {
     owner => 'root',
     group => 'root',
     mode  => '0644',
-    source => 'puppet:///modules/ntp/ntp.conf',
+    source => 'puppet:///modules/eucalyptus/ntp.conf',
     require => Package['ntp'],
   }
 }

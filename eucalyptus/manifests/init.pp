@@ -30,6 +30,7 @@ class eucalyptus (
 )
 {
   include eucalyptus::ntp
+  include eucalyptus::selinux
 
   $repourl = inline_template("http://www.eucalyptussoftware.com/downloads/repo/eucalyptus/<%= version %>/yum/<%= operatingsystem.downcase %>/${architecture}")
   yumrepo { 'eucalyptus':

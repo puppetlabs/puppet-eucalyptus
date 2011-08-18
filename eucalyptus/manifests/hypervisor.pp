@@ -10,7 +10,7 @@ class hypervisor {
     owner => 'root',
     group => 'root',
     mode  => '0644',
-    source => 'puppet:///modules/hypervisor/grub.conf',
+    source => 'puppet:///modules/eucalyptus/grub.conf',
     require => Package['xen', 'kernel-xen'],
   }
   # Edit /etc/xen/xend-config.sxp (drop in new file)
@@ -19,7 +19,7 @@ class hypervisor {
     owner => 'root',
     group => 'root',
     mode  => '0644',
-    source => 'puppet:///modules/hypervisor/xen/xend-config.sxp',
+    source => 'puppet:///modules/eucalyptus/xen/xend-config.sxp',
     require => Package['xen', 'kernel-xen'],
   }
 
@@ -37,7 +37,7 @@ class hypervisor {
     owner => 'root',
     group => 'root',
     mode  => '0644',
-    source => 'puppet:///modules/hypervisor/libvirt/libvirt.conf',
+    source => 'puppet:///modules/eucalyptus/libvirt/libvirt.conf',
     require => Package['libvirt'],
   }
 }

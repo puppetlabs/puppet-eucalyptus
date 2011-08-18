@@ -3,7 +3,7 @@ class selinux {
     owner => 'root',
     group => 'root',
     mode  => '0644',
-    source => 'puppet:///modules/selinux/system-config-securitylevel',
+    source => 'puppet:///modules/eucalyptus/system-config-securitylevel',
   }
   # edit /etc/sysconfig/selinux
   # sed --in-place=.bak 's/enforcing/disabled/g' /etc/sysconfig/selinux 
