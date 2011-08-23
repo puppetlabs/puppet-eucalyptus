@@ -1,4 +1,4 @@
-class selinux {
+class eucalyptus::selinux {
   file { '/etc/sysconfig/system-config-securitylevel':
     owner => 'root',
     group => 'root',

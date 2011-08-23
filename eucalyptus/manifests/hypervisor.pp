@@ -1,4 +1,4 @@
-class hypervisor {
+class eucalyptus::hypervisor {
   # yum install xen kernel-xen libvirt
   package { 'xen': ensure => present }
   package { 'kernel-xen': ensure => present }
