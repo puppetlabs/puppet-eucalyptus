@@ -8,7 +8,7 @@ Puppet::Type.newtype(:eucalyptus_config) do
 
   newproperty(:value) do
     munge do |value|
-      '"'+value.to_s+'"'
+      value.to_s
     end
     newvalues(/^\S+$/)
   end
