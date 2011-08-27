@@ -63,6 +63,10 @@ class eucalyptus (
   if $packages != 'UNSET' { 
     package { $packages: ensure => present }   
   }
+  file {'/etc/eucalyptus':
+    ensure => directory,
+  }
+  Eucalyptus_config { require => File['/etc/eucalyptus'] }
   eucalyptus_config {
     'VNET_MODE': value => $network_mode;
     'VNET_SUBNET': value => $priv_subnet;

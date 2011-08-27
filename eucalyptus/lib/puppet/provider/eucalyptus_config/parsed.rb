@@ -9,7 +9,7 @@ Puppet::Type.type(:eucalyptus_config).provide(
   :filetype => :flat
 ) do
 
-  confine :exists => eucaconf
+  #confine :exists => eucaconf
   text_line :comment, :match => /^#/;
   text_line :blank, :match => /^\s*$/;
 
