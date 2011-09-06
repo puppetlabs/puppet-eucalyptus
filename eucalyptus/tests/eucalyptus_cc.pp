@@ -1,5 +1,8 @@
+$network_mode = 'MANAGED-NOVLAN'
 node default {
-  class {
-    [ eucalyptus, eucalyptus::cc ]:
+  class { 'eucalyptus':
+  }
+  class { 'eucalyptus::cc':
+    network_mode => $network_mode,
   }
 }
