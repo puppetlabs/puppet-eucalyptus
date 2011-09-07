@@ -6,16 +6,7 @@ $addrs_per_net = '32'
 $public_ip_range = '10.20.30.210-10.20.30.230'
 
 node default {
-  class {
-    'eucalyptus':
-  }
-}
-
-node type2 {
-  class {
-    'eucalyptus':
-  }
-  class {'eucalyptus::clc':
+  class { 'eucalyptus':
     network_mode => $network_mode,
     priv_subnet => $priv_subnet,
     priv_netmask => $priv_netmask,
@@ -23,37 +14,20 @@ node type2 {
     addrs_per_net => $addrs_per_net,
     public_ip_range => $public_ip_range,
   }
-}
-
-node type3 {
   class {
-    'eucalyptus':
-  }
-  class {'eucalyptus::walrus':
-    network_mode => $network_mode,
-  }
-}
-
-node type4 {
-  class {
-    'eucalyptus':
-  }
-  class {'eucalyptus:cc':
-    network_mode => $network_mode,
-  }
-}
-
-node type5 {
-  class {
-    'eucalyptus':
-  }
-  class {'eucalyptus:sc':
-    network_mode => $network_mode,
+    [ eucalyptus::clc, eucalyptus::walrus, eucalyptus::cc, eucalyptus::sc ]:
   }
 }
 
 node nodecontroller {
-  class {
-    [ eucalyptus, eucalyptus::nc ]:
+  class { 'eucalyptus':
+    network_mode => $network_mode,
+    priv_subnet => $priv_subnet,
+    priv_netmask => $priv_netmask,
+    dns_server => $dns_server,
+    addrs_per_net => $addrs_per_net,
+    public_ip_range => $public_ip_range,
+  }
+  class { 'eucalyptus::nc':
   }
 }

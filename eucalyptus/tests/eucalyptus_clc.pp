@@ -7,13 +7,13 @@ $public_ip_range = '10.20.30.210-10.20.30.230'
 
 node default {
   class { eucalyptus:
-  }
-  class {'eucalyptus::clc':
     network_mode => $network_mode,
     priv_subnet => $priv_subnet,
     priv_netmask => $priv_netmask,
     dns_server => $dns_server,
     addrs_per_net => $addrs_per_net,
     public_ip_range => $public_ip_range,
+  }
+  class {'eucalyptus::clc':
   }
 }

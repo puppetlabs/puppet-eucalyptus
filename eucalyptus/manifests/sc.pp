@@ -1,9 +1,6 @@
-class eucalyptus::sc ($network_mode) {
+class eucalyptus::sc {
   Class[eucalyptus] -> Class[eucalyptus::sc]
   package { 'eucalyptus-sc':
     ensure => present,
-  }
-  eucalyptus_config {
-    'VNET_MODE': value => $network_mode;
   }
 }

@@ -1,9 +1,6 @@
-class eucalyptus::walrus ($network_mode) {
+class eucalyptus::walrus {
   Class[eucalyptus] -> Class[eucalyptus::walrus]
   package { 'eucalyptus-walrus':
     ensure => present,
-  }
-  eucalyptus_config {
-    'VNET_MODE': value => $network_mode;
   }
 }
