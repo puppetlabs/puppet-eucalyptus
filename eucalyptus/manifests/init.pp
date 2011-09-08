@@ -46,7 +46,7 @@ class eucalyptus (
     baseurl => $repourl,
   }
   case $version {
-    '2.0': {
+    '2\.0\.*': {
       $packages = [ 'java-1.6.0-openjdk',
                     'ant',
                     'ant-nodeps',
