@@ -18,8 +18,9 @@ Puppet::Type.type(:eucalyptus_config).provide(
     :optional => %w{value comment},
     :match => /^\s*(.*?)(?:\s*=\"\s*(.*?))?\"(?:\s*#\s*(.*))?\s*$/,
     :to_line => proc { |hash|
-      str = hash[:name]
-      str += "=\"#{hash[:value]}\"" if hash[:value] != :absent
+      str = "#{hash[:name]}=\""
+      str += hash[:value] if hash[:value] != :absent
+      str += "\""
       str += " # #{hash[:comment]}" unless hash[:comment].nil?
       str
     }

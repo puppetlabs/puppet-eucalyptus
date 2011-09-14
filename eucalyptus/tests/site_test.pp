@@ -5,29 +5,50 @@ $dns_server = '10.20.30.1'
 $addrs_per_net = '32'
 $public_ip_range = '10.20.30.210-10.20.30.230'
 
-node default {
+node frontend {
   class { 'eucalyptus':
-    network_mode => $network_mode,
-    priv_subnet => $priv_subnet,
-    priv_netmask => $priv_netmask,
-    dns_server => $dns_server,
-    addrs_per_net => $addrs_per_net,
-    public_ip_range => $public_ip_range,
   }
   class {
     [ eucalyptus::clc, eucalyptus::walrus, eucalyptus::cc, eucalyptus::sc ]:
   }
+  service {
+    [ eucalyptus::clc, eucalyptus::walrus, eucalyptus::cc, eucalyptus::sc ]:
+    ensure => running,
+    enable => true
+  }
+  Eucalyptus_config {
+    require => Service['eucalyptus-clc'],
+    notify => Service['eucalyptus-clc']
+  }
+  eucalyptus_config {
+    'VNET_MODE': value => $network_mode;
+    'VNET_SUBNET': value => $priv_subnet;
+    'VNET_NETMASK': value => $priv_netmask;
+    'VNET_DNS': value => $dns_server;
+    'VNET_ADDRSPERNET': value => $addrs_per_net;
+    'VNET_PUBLICIPS': value => $public_ip_range;
+  }
 }
 
-node nodecontroller {
+node default {
   class { 'eucalyptus':
-    network_mode => $network_mode,
-    priv_subnet => $priv_subnet,
-    priv_netmask => $priv_netmask,
-    dns_server => $dns_server,
-    addrs_per_net => $addrs_per_net,
-    public_ip_range => $public_ip_range,
   }
   class { 'eucalyptus::nc':
+  }
+  service { 'eucalyptus-nc':
+    ensure => running,
+    enable => true
+  }
+  Eucalyptus_config {
+    require => Service['eucalyptus-nc'],
+    notify => Service['eucalyptus-nc']
+  }
+  eucalyptus_config {
+    'VNET_MODE': value => $network_mode;
+    'VNET_SUBNET': value => $priv_subnet;
+    'VNET_NETMASK': value => $priv_netmask;
+    'VNET_DNS': value => $dns_server;
+    'VNET_ADDRSPERNET': value => $addrs_per_net;
+    'VNET_PUBLICIPS': value => $public_ip_range;
   }
 }

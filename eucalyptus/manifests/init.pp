@@ -26,12 +26,6 @@
 #
 
 class eucalyptus (
-  $network_mode,
-  $priv_subnet,
-  $priv_netmask,
-  $dns_server,
-  $addrs_per_net,
-  $public_ip_range,
   $version = '2.0.3'
 )
 {
@@ -65,14 +59,5 @@ class eucalyptus (
   }
   file {'/etc/eucalyptus':
     ensure => directory,
-  }
-  Eucalyptus_config { require => File['/etc/eucalyptus'] }
-  eucalyptus_config {
-    'VNET_MODE': value => $network_mode;
-    'VNET_SUBNET': value => $priv_subnet;
-    'VNET_NETMASK': value => $priv_netmask;
-    'VNET_DNS': value => $dns_server;
-    'VNET_ADDRSPERNET': value => $addrs_per_net;
-    'VNET_PUBLICIPS': value => $public_ip_range;
   }
 }
