@@ -5,7 +5,7 @@ $dns_server = '10.20.30.1'
 $addrs_per_net = '32'
 $public_ip_range = '10.20.30.210-10.20.30.230'
 
-node frontend {
+node default {
   class { 'eucalyptus':
   }
   class {
@@ -30,7 +30,7 @@ node frontend {
   }
 }
 
-node default {
+node nodecontroller {
   class { 'eucalyptus':
   }
   class { 'eucalyptus::nc':

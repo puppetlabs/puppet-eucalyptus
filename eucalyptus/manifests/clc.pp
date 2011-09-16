@@ -3,4 +3,8 @@ class eucalyptus::clc {
   package { 'eucalyptus-cloud':
     ensure => present,
   }
+  service { 'eucalyptus-clc':
+    ensure => running,
+    enable => true
+  }
 }
