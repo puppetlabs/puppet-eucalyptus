@@ -11,15 +11,10 @@ node default {
   class {
     [ eucalyptus::clc, eucalyptus::walrus, eucalyptus::cc, eucalyptus::sc ]:
   }
-  service {
-    [ eucalyptus::clc, eucalyptus::walrus, eucalyptus::cc, eucalyptus::sc ]:
-    ensure => running,
-    enable => true
-  }
-  Eucalyptus_config {
-    require => Service['eucalyptus-clc'],
-    notify => Service['eucalyptus-clc']
-  }
+#  Eucalyptus_config {
+#    require => Service['eucalyptus-clc'],
+#    notify => Service['eucalyptus-clc']
+#  }
   eucalyptus_config {
     'VNET_MODE': value => $network_mode;
     'VNET_SUBNET': value => $priv_subnet;
@@ -34,10 +29,6 @@ node nodecontroller {
   class { 'eucalyptus':
   }
   class { 'eucalyptus::nc':
-  }
-  service { 'eucalyptus-nc':
-    ensure => running,
-    enable => true
   }
   Eucalyptus_config {
     require => Service['eucalyptus-nc'],

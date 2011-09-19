@@ -48,7 +48,7 @@ class eucalyptus (
                     'bridge-utils',
                     'scsi-target-utils',
                     'httpd',
-					'sudo'] 
+                    'sudo'] 
     }
     default: {
       $packages = 'UNSET'
