@@ -6,6 +6,7 @@ class eucalyptus::nc {
   }
   service { 'eucalyptus-nc':
     ensure => running,
-    enable => true
+    enable => true,
+    requires => Package['eucalyptus-nc']
   }
 }

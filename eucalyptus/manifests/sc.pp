@@ -3,8 +3,4 @@ class eucalyptus::sc {
   package { 'eucalyptus-sc':
     ensure => present,
   }
-  service { 'eucalyptus-sc':
-    ensure => running,
-    enable => true
-  }
 }
