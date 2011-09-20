@@ -6,6 +6,6 @@ class eucalyptus::clc {
   service { 'eucalyptus-cloud':
     ensure => running,
     enable => true,
-    requires => Package['eucalyptus-cloud']
+    require => Package['eucalyptus-cloud']
   }
 }

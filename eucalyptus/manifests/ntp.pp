@@ -10,4 +10,7 @@ class eucalyptus::ntp {
     source => 'puppet:///modules/eucalyptus/ntp.conf',
     require => Package['ntp'],
   }
+  exec { "/sbin/ntpdate pool.ntp.org":
+    require => File['/etc/ntp.conf'],
+  }
 }

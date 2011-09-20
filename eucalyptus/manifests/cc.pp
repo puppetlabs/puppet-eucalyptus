@@ -6,6 +6,6 @@ class eucalyptus::cc {
   service { 'eucalyptus-cc':
     ensure => running,
     enable => true,
-    requires => Package['eucalyptus-cc']
+    require => Package['eucalyptus-cc']
   }
 }
