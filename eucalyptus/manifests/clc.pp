@@ -13,17 +13,21 @@ class eucalyptus::clc {
     require => Package['eucalyptus-cloud'],
     subscribe => Eucalyptus_config['VNET_MODE'],
   }
-  @@file { 'nc-cert':
-    path => '/var/lib/eucalyptus/nc-cert.pem',
-    content => "$eucakey_nc-cert.pem",
+  @@file { 'cluster00-nc-cert':
+    path => '/var/lib/eucalyptus/keys/node-cert.pem',
+    content => "$eucakeys_cluster00_node-cert.pem",
   }
-  @@file { 'nc-pk':
-    path => '/var/lib/eucalyptus/nc-pk.pem',
-    content => "$eucakey_nc-pk.pem",
+  @@file { 'cluster00-nc-pk':
+    path => '/var/lib/eucalyptus/keys/node-pk.pem',
+    content => "$eucakeys_cluster00_node-pk.pem",
   }
-  @@file { 'cc-cert':
-    path => '/var/lib/eucalyptus/cc-cert.pem',
-    content => "$eucakey_cc-cert.pem",
+  @@file { 'cluster00-cc-cert':
+    path => '/var/lib/eucalyptus/keys/cluster-cert.pem',
+    content => "$eucakeys_cluster00_cluster-cert.pem",
+  }
+  @@file { 'cluster00-cc-pk':
+    path => '/var/lib/eucalyptus/keys/cluster-pk.pem',
+    content => "$eucakeys_cluster00_cluster-pk.pem",
   }
   Eucalyptus_config <||>
   Exec <<||>>
