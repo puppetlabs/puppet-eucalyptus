@@ -1,5 +1,4 @@
 class eucalyptus::ntp {
-  # yum install –y ntp
   package { 'ntp': ensure => present }
 
   # ntpdate pool.ntp.org
