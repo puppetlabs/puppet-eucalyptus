@@ -16,7 +16,6 @@ class eucalyptus::clc {
   @@file { 'nc-pk':
     path => '/var/lib/eucalyptus/nc-pk.pem',
 	content => "$eucakey_nc-pk.pem",
-	require => File['nc-cert'],
   }
   @@file { 'cc-cert':
     path => '/var/lib/eucalyptus/cc-cert.pem',
