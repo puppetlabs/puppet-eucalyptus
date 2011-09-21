@@ -1,19 +1,22 @@
 class eucalyptus::nc {
-  include eucalyptus::hypervisor
   Class[eucalyptus] -> Class[eucalyptus::nc]
+
+  include eucalyptus::conf
+  include eucalyptus::hypervisor
+
   package { 'eucalyptus-nc':
     ensure => present,
-	before => File['node-cert'],
-	before => File['node-pk'],
   }
-  File <<|name == 'node-cert'|>>
-  File <<|name == 'node-pk'|>>
   service { 'eucalyptus-nc':
     ensure => running,
     enable => true,
-    require => File['node-cert'],
-    require => File['node-pk'],
-	subscribe => Eucalyptus_config['VNET_MODE']
+    subscribe => Eucalyptus_config['VNET_MODE'],
   }
   Eucalyptus_config <||>
+  @@exec { 'reg-nc':
+    command => "/usr/sbin/euca_conf --no-rsync --register-nodes $ec2_public_hostname",
+  }
+  File <<|title == 'cluster00-cc-cert'|>>
+  File <<|title == 'cluster00-nc-cert'|>>
+  File <<|title == 'cluster00-nc-pk'|>>
 }
