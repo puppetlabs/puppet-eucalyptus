@@ -6,8 +6,8 @@ class eucalyptus::nc {
 	before => File['node-cert'],
 	before => File['node-pk'],
   }
-  File <<|name = 'node-cert'||>
-  File <<|name = 'node-pk'||>
+  File <<|name == 'node-cert'|>>
+  File <<|name == 'node-pk'|>>
   service { 'eucalyptus-nc':
     ensure => running,
     enable => true,

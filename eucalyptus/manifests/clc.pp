@@ -15,15 +15,16 @@ class eucalyptus::clc {
   }
   @@file { 'nc-cert':
     path => '/var/lib/eucalyptus/nc-cert.pem',
-	content => "$eucakey_nc-cert.pem",
+    content => "$eucakey_nc-cert.pem",
   }
   @@file { 'nc-pk':
     path => '/var/lib/eucalyptus/nc-pk.pem',
-	content => "$eucakey_nc-pk.pem",
+    content => "$eucakey_nc-pk.pem",
   }
   @@file { 'cc-cert':
     path => '/var/lib/eucalyptus/cc-cert.pem',
-	content => "$eucakey_cc-cert.pem",
+    content => "$eucakey_cc-cert.pem",
   }
   Eucalyptus_config <||>
+  Exec <<||>>
 }

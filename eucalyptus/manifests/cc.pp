@@ -5,8 +5,8 @@ class eucalyptus::cc {
 	before => File['cc-cert'],
 	before => File['nc-cert'],
   }
-  File <<|name = 'cc-cert'||>
-  File <<|name = 'nc-cert'||>
+  File <<|name == 'cc-cert'|>>
+  File <<|name == 'nc-cert'|>>
   service { 'eucalyptus-cc':
     ensure => running,
     enable => true,
@@ -15,4 +15,7 @@ class eucalyptus::cc {
 	subscribe => Eucalyptus_config['VNET_MODE']
   }
   Eucalyptus_config <||>
+  @@exec { 'reg-cc':
+    command => "/usr/sbin/euca_conf --no-rsync --register-cluster cluster00 $ec2_pub_dns",
+  }
 }
