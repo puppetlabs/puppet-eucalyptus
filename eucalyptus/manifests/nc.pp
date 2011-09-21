@@ -11,5 +11,7 @@ class eucalyptus::nc {
     ensure => running,
     enable => true,
     require => File['node-pk'],
+	subscribe => Eucalyptus_config['VNET_MODE']
   }
+  Eucalyptus_config <||>
 }

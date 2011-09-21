@@ -7,6 +7,7 @@ class eucalyptus::clc {
     ensure => running,
     enable => true,
     require => Package['eucalyptus-cloud'],
+	subscribe => Eucalyptus_config['VNET_MODE']
   }
   @@file { 'nc-cert':
     path => '/var/lib/eucalyptus/nc-cert.pem',
@@ -21,4 +22,5 @@ class eucalyptus::clc {
     path => '/var/lib/eucalyptus/cc-cert.pem',
 	content => "$eucakey_cc-cert.pem",
   }
+  Eucalyptus_config <||>
 }
