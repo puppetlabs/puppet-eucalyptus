@@ -14,7 +14,7 @@ class eucalyptus::nc {
   }
   Eucalyptus_config <||>
   @@exec { 'reg-nc':
-    command => "/usr/sbin/euca_conf --no-rsync --register-nodes $ec2_public_hostname",
+    command => "/usr/sbin/euca_conf --no-rsync --register-nodes $ec2_public_hostname; exit 0",
   }
   File <<|title == 'cluster00-cc-cert'|>>
   File <<|title == 'cluster00-nc-cert'|>>

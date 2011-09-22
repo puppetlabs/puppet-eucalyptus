@@ -17,6 +17,8 @@ class eucalyptus::cc {
 ## Hack warning! this ensures cc registered before sc, then exit code forced to 0 to make exec code happy
     command => "/usr/sbin/euca_conf --no-rsync --register-cluster cluster00 $ec2_public_hostname; /usr/sbin/euca_conf --no-rsync --register-cluster cluster00 $ec2_public_hostname; exit 0",
   }
+  File <<|title == 'cloud-cert'|>>
+  File <<|title == 'cloud-pk'|>>
   File <<|title == 'cluster00-cc-cert'|>>
   File <<|title == 'cluster00-cc-pk'|>>
   File <<|title == 'cluster00-nc-cert'|>>
