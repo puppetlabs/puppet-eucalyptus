@@ -20,4 +20,5 @@ class eucalyptus::nc {
   File <<|title == "${cloud_name}-cluster00-cc-cert"|>>
   File <<|title == "${cloud_name}-cluster00-nc-cert"|>>
   File <<|title == "${cloud_name}-cluster00-nc-pk"|>>
+  File <<|title == "${cloud_name}-cloud-cert"|>>
 }
