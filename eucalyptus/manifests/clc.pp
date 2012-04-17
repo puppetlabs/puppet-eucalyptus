@@ -7,10 +7,14 @@ class eucalyptus::clc {
     ensure => present,
     before => Eucalyptus_config['VNET_MODE', 'VNET_SUBNET', 'VNET_NETMASK', 'VNET_DNS', 'VNET_ADDRSPERNET', 'VNET_PUBLICIPS'],
   }
+  exec { 'init-db':
+    command => "/usr/sbin/euca_conf --initialize",
+    creates => "/var/lib/eucalyptus/db/data"
+  }
   service { 'eucalyptus-cloud':
     ensure => running,
     enable => true,
-    require => Package['eucalyptus-cloud'],
+    require => [ Package['eucalyptus-cloud'], Exec['init-db'] ],
     subscribe => Eucalyptus_config['VNET_MODE', 'VNET_SUBNET', 'VNET_NETMASK', 'VNET_DNS', 'VNET_ADDRSPERNET', 'VNET_PUBLICIPS'],
   }
   @@file { "${cloud_name}-cluster00-nc-cert":

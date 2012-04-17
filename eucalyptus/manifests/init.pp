@@ -26,39 +26,34 @@
 #
 
 class eucalyptus (
-  $version = '2.0.3'
+  $version = '3-devel'
 )
 {
   include eucalyptus::ntp
-  include eucalyptus::selinux
-  include eucalyptus::sudo
+  include eucalyptus::security
 
-  $repourl = inline_template("http://www.eucalyptussoftware.com/downloads/repo/eucalyptus/<%= version %>/yum/<%= operatingsystem.downcase %>/${architecture}")
-  yumrepo { 'eucalyptus':
-    descr => 'Eucalyptus Software',
-    enabled => 1,
-    gpgcheck => 0,
-    baseurl => $repourl,
-  }
-  case $version {
-    '2.0.3': {
-      $packages = [ 'java-1.6.0-openjdk',
-                    'ant',
-                    'ant-nodeps',
-                    'dhcp',
-                    'bridge-utils',
-                    'scsi-target-utils',
-                    'httpd',
-                    'sudo'] 
-    }
-    default: {
-      $packages = 'UNSET'
-    }
-  }
-  if $packages != 'UNSET' { 
-    package { $packages: ensure => present }   
-  }
   file {'/etc/eucalyptus':
     ensure => directory,
   }
+  exec { "elrepo.file":
+    command => "/bin/rpm -Uvh http://elrepo.org/elrepo-release-6-4.el6.elrepo.noarch.rpm",
+    creates => "/etc/yum.repos.d/elrepo.repo"
+  }
+  exec { "epel.file":
+    command => "/bin/rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-5.noarch.rpm",
+    creates => "/etc/yum.repos.d/epel.repo"
+  }
+  file {'/etc/yum.repos.d/epel-testing.repo':
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
+    source => 'puppet:///modules/eucalyptus/epel-testing.repo',
+  }
+  file {'/etc/yum.repos.d/euca.repo':
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
+    source => 'puppet:///modules/eucalyptus/euca.repo',
+  }
 }
+
