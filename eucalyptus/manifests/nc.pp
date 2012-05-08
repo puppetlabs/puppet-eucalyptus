@@ -2,7 +2,6 @@ class eucalyptus::nc {
   Class[eucalyptus] -> Class[eucalyptus::nc]
 
   include eucalyptus::conf
-  include eucalyptus::hypervisor
 
   package { 'eucalyptus-nc':
     ensure => present,

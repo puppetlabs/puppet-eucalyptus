@@ -6,10 +6,14 @@ class eucalyptus::clc {
   package { 'eucalyptus-cloud':
     ensure => present,
   }
+  exec { 'init-db':
+    command => "/usr/sbin/euca_conf --initialize",
+    creates => "/var/lib/eucalyptus/db/data"
+  }
   service { 'eucalyptus-cloud':
     ensure => running,
     enable => true,
-    require => Package['eucalyptus-cloud'],
+    require => [ Package['eucalyptus-cloud'], Exec['init-db'] ],
   }
   @@file { "${cloud_name}-cluster00-nc-cert":
     path => '/var/lib/eucalyptus/keys/node-cert.pem',
