@@ -5,13 +5,11 @@ class eucalyptus::clc {
 
   package { 'eucalyptus-cloud':
     ensure => present,
-    before => Eucalyptus_config['VNET_MODE', 'VNET_SUBNET', 'VNET_NETMASK', 'VNET_DNS', 'VNET_ADDRSPERNET', 'VNET_PUBLICIPS'],
   }
   service { 'eucalyptus-cloud':
     ensure => running,
     enable => true,
     require => Package['eucalyptus-cloud'],
-    subscribe => Eucalyptus_config['VNET_MODE', 'VNET_SUBNET', 'VNET_NETMASK', 'VNET_DNS', 'VNET_ADDRSPERNET', 'VNET_PUBLICIPS'],
   }
   @@file { "${cloud_name}-cluster00-nc-cert":
     path => '/var/lib/eucalyptus/keys/node-cert.pem',
@@ -43,6 +41,7 @@ class eucalyptus::clc {
     content => "$eucakeys_cloud-pk",
     tag => "${cloud_name}",
   }
+  Package[eucalyptus-cloud] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
   Eucalyptus_config <||>
   Exec <<|tag == "$cloud_name"|>>
 }

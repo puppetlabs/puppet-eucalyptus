@@ -10,8 +10,8 @@ class eucalyptus::cc {
   service { 'eucalyptus-cc':
     ensure => running,
     enable => true,
-    subscribe => Eucalyptus_config['VNET_MODE']
   }
+  Package[eucalyptus-cc] -> Eucalyptus_config<||> -> Service[eucalyptus-cc]
   Eucalyptus_config <||>
   @@exec { 'reg-cc':
 ## Hack warning! this ensures cc registered before sc, then exit code forced to 0 to make exec code happy

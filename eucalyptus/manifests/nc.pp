@@ -10,8 +10,8 @@ class eucalyptus::nc {
   service { 'eucalyptus-nc':
     ensure => running,
     enable => true,
-    subscribe => Eucalyptus_config['VNET_MODE'],
   }
+  Package[eucalyptus-nc] -> Eucalyptus_config<||> -> Service[eucalyptus-nc]
   Eucalyptus_config <||>
   @@exec { 'reg-nc':
     command => "/usr/sbin/euca_conf --no-rsync --register-nodes $ec2_public_hostname; exit 0",
