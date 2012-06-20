@@ -56,10 +56,51 @@ class eucalyptus (
     creates => "/etc/yum.repos.d/pgdg-91-centos.repo",
   } 
 
-  exec { "eucalyptus-devel.file":
-    command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/devel/packages/3-devel/nightly/centos/6/x86_64/eucalyptus-nightly-release-3-1.el.noarch.rpm",
-    creates => "/etc/yum.repos.d/eucalyptus-nightly-release.repo",
+  # Add the correct repository depending on eucalyptus version specified
+  case $version {
+    '3.0':  {
+              # Eucalyptus 3.0 uses repository keys, you need to add
+              # eucalyptus.crt and eucalyptus.key to the files/ dir in the module
+              file {'/etc/yum.repos.d/eucalyptus-3-0.repo':
+                owner  => 'root',
+                group  => 'root',
+                mode   => '0644',
+                source => 'puppet:///modules/eucalyptus/eucalyptus-3-0.repo',
+              }
+              file {'/etc/pki/rpm-gpg/c1240596-eucalyptus-release-key.pub':
+                owner  => 'root',
+                group  => 'root',
+                mode   => '0644',
+                source => 'puppet:///modules/eucalyptus/c1240596-eucalyptus-release-key.pub',
+              }
+              file {'/etc/pki/tls/certs/eucalyptus.crt':
+                owner  => 'root',
+                group  => 'root',
+                mode   => '0644',
+                source => 'puppet:///modules/eucalyptus/eucalyptus.crt',
+              }
+              file {'/etc/pki/tls/private/eucalyptus.key':
+                owner  => 'root',
+                group  => 'root',
+                mode   => '0644',
+                source => 'puppet:///modules/eucalyptus/eucalyptus.key',
+              }
+    }
+    '3.1':  {
+              file {'/etc/yum.repos.d/eucalyptus-3-1.repo':
+                owner  => 'root',
+                group  => 'root',
+                mode   => '0644',
+                source => 'puppet:///modules/eucalyptus/eucalyptus-3-1.repo',
+              }
+    }
+    '3-devel':  {
+                  # Eucalyptus devel uses an rpm with the repo config
+                  exec { "eucalyptus-devel.file":
+                    command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/devel/packages/3-devel/nightly/centos/6/x86_64/eucalyptus-nightly-release-3-1.el.noarch.rpm",
+                    creates => "/etc/yum.repos.d/eucalyptus-nightly-release.repo",
+                  }
+    }
   }
-
 }
 
