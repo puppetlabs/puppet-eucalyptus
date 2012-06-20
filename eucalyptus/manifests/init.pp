@@ -26,7 +26,7 @@
 #
 
 class eucalyptus (
-  $version = '3-devel'
+  $version = '3.1'
 )
 {
   include eucalyptus::ntp
@@ -35,14 +35,21 @@ class eucalyptus (
   file {'/etc/eucalyptus':
     ensure => directory,
   }
+
+  # ELRepo: Required for DRBD packages
   exec { "elrepo.file":
     command => "/bin/rpm -Uvh http://elrepo.org/elrepo-release-6-4.el6.elrepo.noarch.rpm",
     creates => "/etc/yum.repos.d/elrepo.repo"
   }
+
+  # EPEL: Additional dependencies
+  # You may need to update this as the epel-release package version changes, see:
+  # http://download.fedoraproject.org/pub/epel/6/i386/repoview/epel-release.html
   exec { "epel.file":
-    command => "/bin/rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-5.noarch.rpm",
+    command => "/bin/rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-7.noarch.rpm",
     creates => "/etc/yum.repos.d/epel.repo"
   }
+
   file {'/etc/yum.repos.d/epel-testing.repo':
     owner => 'root',
     group => 'root',
