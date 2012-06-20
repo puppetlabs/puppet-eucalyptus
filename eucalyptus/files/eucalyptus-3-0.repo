@@ -1,0 +1,7 @@
+[eucalyptus-enterprise]
+name=Eucalyptus Enterprise 3.0
+baseurl=https://downloads.eucalyptus.com/software/enterprise/3.0/rhel/$releasever/$basearch
+gpgkey=file:///etc/pki/rpm-gpg/c1240596-eucalyptus-release-key.pub
+gpgcheck=1
+sslclientcert=/etc/pki/tls/certs/eucalyptus.crt
+sslclientkey=/etc/pki/tls/private/eucalyptus.key
