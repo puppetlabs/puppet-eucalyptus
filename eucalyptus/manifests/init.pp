@@ -56,6 +56,14 @@ class eucalyptus (
     creates => "/etc/yum.repos.d/pgdg-91-centos.repo",
   } 
 
+  # Euca2ools
+  file {'/etc/yum.repos.d/euca2ools.repo':
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/eucalyptus/euca2ools.repo',
+  }
+
   # Add the correct repository depending on eucalyptus version specified
   case $version {
     '3.0':  {
