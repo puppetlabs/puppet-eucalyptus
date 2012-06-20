@@ -50,17 +50,16 @@ class eucalyptus (
     creates => "/etc/yum.repos.d/epel.repo"
   }
 
-  file {'/etc/yum.repos.d/epel-testing.repo':
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
-    source => 'puppet:///modules/eucalyptus/epel-testing.repo',
+  # PGRPMS: Postgres 9.1 - required for Eucalyptus < 3.1 
+  exec { "pgrpms.file":
+    command => "/bin/rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-i386/pgdg-centos91-9.1-4.noarch.rpm",
+    creates => "/etc/yum.repos.d/pgdg-91-centos.repo",
+  } 
+
+  exec { "eucalyptus-devel.file":
+    command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/devel/packages/3-devel/nightly/centos/6/x86_64/eucalyptus-nightly-release-3-1.el.noarch.rpm",
+    creates => "/etc/yum.repos.d/eucalyptus-nightly-release.repo",
   }
-  file {'/etc/yum.repos.d/euca.repo':
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
-    source => 'puppet:///modules/eucalyptus/euca.repo',
-  }
+
 }
 
