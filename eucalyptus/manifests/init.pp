@@ -95,11 +95,9 @@ class eucalyptus (
               }
     }
     '3.1':  {
-              file {'/etc/yum.repos.d/eucalyptus-3-1.repo':
-                owner  => 'root',
-                group  => 'root',
-                mode   => '0644',
-                source => 'puppet:///modules/eucalyptus/eucalyptus-3-1.repo',
+              exec { "eucalyptus-devel.file":
+                command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/eucalyptus/3.1/centos/5/x86_64/eucalyptus-release-3.1.noarch.rpm",
+                creates => "/etc/yum.repos.d/eucalyptus.repo",
               }
     }
     '3-devel':  {
