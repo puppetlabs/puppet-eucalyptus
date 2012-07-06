@@ -95,8 +95,8 @@ class eucalyptus (
               }
     }
     '3.1':  {
-              exec { "eucalyptus-devel.file":
-                command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/eucalyptus/3.1/centos/5/x86_64/eucalyptus-release-3.1.noarch.rpm",
+              exec { "eucalyptus-3-1.file":
+                command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/eucalyptus/3.1/centos/6/x86_64/eucalyptus-release-3.1.noarch.rpm",
                 creates => "/etc/yum.repos.d/eucalyptus.repo",
               }
     }
