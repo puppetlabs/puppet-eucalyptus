@@ -46,7 +46,7 @@ class eucalyptus (
   # You may need to update this as the epel-release package version changes, see:
   # http://download.fedoraproject.org/pub/epel/6/i386/repoview/epel-release.html
   exec { "epel.file":
-    command => "/bin/rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-7.noarch.rpm",
+    command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/eucalyptus/3.1/centos/6/x86_64/epel-release-6.noarch.rpm",
     creates => "/etc/yum.repos.d/epel.repo"
   }
 
@@ -55,14 +55,6 @@ class eucalyptus (
     command => "/bin/rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-i386/pgdg-centos91-9.1-4.noarch.rpm",
     creates => "/etc/yum.repos.d/pgdg-91-centos.repo",
   } 
-
-  # Euca2ools
-  file {'/etc/yum.repos.d/euca2ools.repo':
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => 'puppet:///modules/eucalyptus/euca2ools.repo',
-  }
 
   # Add the correct repository depending on eucalyptus version specified
   case $version {
@@ -93,17 +85,32 @@ class eucalyptus (
                 mode   => '0644',
                 source => 'puppet:///modules/eucalyptus/eucalyptus.key',
               }
+              # Euca2ools
+              file {'/etc/yum.repos.d/euca2ools.repo':
+                owner  => 'root',
+                group  => 'root',
+                mode   => '0644',
+                source => 'puppet:///modules/eucalyptus/euca2ools.repo',
+              }
     }
     '3.1':  {
-              exec { "eucalyptus-3-1.file":
+              exec { "eucalyptus-3-1":
                 command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/eucalyptus/3.1/centos/6/x86_64/eucalyptus-release-3.1.noarch.rpm",
                 creates => "/etc/yum.repos.d/eucalyptus.repo",
+              }
+              exec { "euca2ools":
+                command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/euca2ools/2.1/centos/6/x86_64/euca2ools-release-2.1.noarch.rpm",
+                creates => "/etc/yum.repos.d/euca2ools.repo",
               }
     }
     '3-devel':  {
                   # Eucalyptus devel uses an rpm with the repo config
-                  exec { "eucalyptus-devel.file":
+                  exec { "eucalyptus-nightly":
                     command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/devel/packages/3-devel/nightly/centos/6/x86_64/eucalyptus-nightly-release-3-1.el.noarch.rpm",
+                    creates => "/etc/yum.repos.d/eucalyptus-nightly-release.repo",
+                  }
+                  exec { "euca2ools-nightly":
+                    command => "/bin/rpm -Uvh http://downloads.eucalyptus.com/software/euca2ools/nightly/2.1/centos/5/x86_64/euca2ools-release-2.1.noarch.rpm",
                     creates => "/etc/yum.repos.d/eucalyptus-nightly-release.repo",
                   }
     }
