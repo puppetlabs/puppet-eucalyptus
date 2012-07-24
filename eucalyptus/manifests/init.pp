@@ -26,7 +26,7 @@
 #
 
 class eucalyptus (
-  $version = '3-devel'
+  $version = '3.1'
 )
 {
   include eucalyptus::ntp
