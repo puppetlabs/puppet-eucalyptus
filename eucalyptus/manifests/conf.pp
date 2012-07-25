@@ -7,6 +7,8 @@ class eucalyptus::conf
     'VNET_DNS': value => $vnet_dns;
     'VNET_ADDRSPERNET': value => $vnet_addrspernet;
     'VNET_PUBLICIPS': value => $vnet_publicips;
+    'VNET_PRIVINTERFACE': value => $vnet_privinterface;
+    'VNET_PUBINTERFACE': value => $vnet_pubinterface;
     'EUCALYPTUS': value => "/";
     'EUCA_USER': value => "eucalyptus";
     'DISABLE_ISCSI': value => "N";
