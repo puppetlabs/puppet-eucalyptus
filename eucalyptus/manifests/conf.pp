@@ -1,12 +1,12 @@
 class eucalyptus::conf
 {
   @eucalyptus_config {
-    'VNET_MODE': value => $network_mode;
-    'VNET_SUBNET': value => $priv_subnet;
-    'VNET_NETMASK': value => $priv_netmask;
-    'VNET_DNS': value => $dns_server;
-    'VNET_ADDRSPERNET': value => $addrs_per_net;
-    'VNET_PUBLICIPS': value => $public_ip_range;
+    'VNET_MODE': value => $vnet_mode;
+    'VNET_SUBNET': value => $vnet_subnet;
+    'VNET_NETMASK': value => $vnet_netmask;
+    'VNET_DNS': value => $vnet_dns;
+    'VNET_ADDRSPERNET': value => $vnet_addrspernet;
+    'VNET_PUBLICIPS': value => $vnet_publicips;
     'EUCALYPTUS': value => "/";
     'EUCA_USER': value => "eucalyptus";
     'DISABLE_ISCSI': value => "N";
