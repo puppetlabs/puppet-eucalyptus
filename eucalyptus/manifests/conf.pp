@@ -1,4 +1,33 @@
-class eucalyptus::conf
+class eucalyptus::conf(
+    # Default values for parameters not overriden in node definitions, try to stick to eucalyptus.conf defaults
+    $vnet_mode = "SYSTEM",
+    $vnet_subnet = "",
+    $vnet_netmask = "",
+    $vnet_dns = "",
+    $vnet_addrspernet = "",
+    $vnet_publicips = "",
+    $vnet_privinterface = "",
+    $vnet_pubinterface = "",
+    $eucalyptus_dir = "/",
+    $eucalyptus_user = "eucalyptus",
+    $disable_iscsi = "N",
+    $disable_dns = "Y",
+    $enable_ws_security = "Y",
+    $eucalyptus_loglevel = "DEBUG",
+    $cc_port = "8774",
+    $schedpolicy = "ROUNDROBIN",
+    $power_idlethresh = "0",
+    $power_wakethresh = "0",
+    $nc_service = "axis2/services/EucalyptusNC",
+    $nc_port = "8775",
+    $hypervisor = "kvm",    
+    $use_virtio_disk = "1",
+    $use_virtio_root = "1",
+    $use_virtio_net = "0",
+    $instance_path = "/var/lib/eucalyptus/instances",
+    $vnet_bridge = "br0",
+    $vnet_dhcpdaemon = "/usr/sbin/dhcpd41",
+)
 {
   @eucalyptus_config {
     'VNET_MODE': value => $vnet_mode;
@@ -9,20 +38,20 @@ class eucalyptus::conf
     'VNET_PUBLICIPS': value => $vnet_publicips;
     'VNET_PRIVINTERFACE': value => $vnet_privinterface;
     'VNET_PUBINTERFACE': value => $vnet_pubinterface;
-    'EUCALYPTUS': value => "/";
-    'EUCA_USER': value => "eucalyptus";
-    'DISABLE_ISCSI': value => "N";
-    'DISABLE_DNS': value => "Y";
-    'ENABLE_WS_SECURITY': value => "Y";
+    'EUCALYPTUS': value => $eucalyptus_dir;
+    'EUCA_USER': value => $eucalyptus_user;
+    'DISABLE_ISCSI': value => $disable_iscsi;
+    'DISABLE_DNS': value => $disable_dns;
+    'ENABLE_WS_SECURITY': value => $enable_ws_security;
 #    'CLOUD_OPTS': value => "";
-    'LOGLEVEL': value => "DEBUG";
-    'CC_PORT': value => "8774";
-    'SCHEDPOLICY': value => "ROUNDROBIN";
-    'POWER_IDLETHRESH': value => "0";
-    'POWER_WAKETHRESH': value => "0";
+    'LOGLEVEL': value => $eucalyptus_loglevel;
+    'CC_PORT': value => $cc_port;
+    'SCHEDPOLICY': value => $schedpolicy;
+    'POWER_IDLETHRESH': value => $power_idlethresh;
+    'POWER_WAKETHRESH': value => $power_wakethresh;
 #    'NODES': value => "";
-    'NC_SERVICE': value => "axis2/services/EucalyptusNC";
-    'NC_PORT': value => "8775";
+    'NC_SERVICE': value => $nc_service;
+    'NC_PORT': value => $nc_port;
     'HYPERVISOR': value => $hypervisor;
     'USE_VIRTIO_DISK': value => $use_virtio_disk;
     'USE_VIRTIO_ROOT': value => $use_virtio_root;
