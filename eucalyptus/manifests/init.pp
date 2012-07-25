@@ -4,10 +4,6 @@
 # == Parameters
 #
 # [*version*] The version of Eucalyptus we are installing. Defaults to 3.1.
-# [*repourl*] The uri for the package repo that is being used for this install. This is user configurable. 
-# [*servers*]
-#   Description of servers class parameter.  e.g. "Specify one or more
-#   upstream ntp servers as an array."
 #
 # == Examples
 #
