@@ -16,17 +16,17 @@ class eucalyptus::conf
     'LOGLEVEL': value => "DEBUG";
     'CC_PORT': value => "8774";
     'SCHEDPOLICY': value => "ROUNDROBIN";
-    'POWER_IDLETHRESH': value => "300";
-    'POWER_WAKETHRESH': value => "300";
+    'POWER_IDLETHRESH': value => "0";
+    'POWER_WAKETHRESH': value => "0";
 #    'NODES': value => "";
     'NC_SERVICE': value => "axis2/services/EucalyptusNC";
     'NC_PORT': value => "8775";
-    'HYPERVISOR': value => "xen";
-    'USE_VIRTIO_DISK': value => "0";
-    'USE_VIRTIO_ROOT': value => "0";
-    'USE_VIRTIO_NET': value => "0";
-    'INSTANCE_PATH': value => "/usr/local/eucalyptus/";
-    'VNET_BRIDGE': value => "xenbr0";
-    'VNET_DHCPDAEMON': value => "/usr/sbin/dhcpd";
+    'HYPERVISOR': value => $hypervisor;
+    'USE_VIRTIO_DISK': value => $use_virtio_disk;
+    'USE_VIRTIO_ROOT': value => $use_virtio_root;
+    'USE_VIRTIO_NET': value => $use_virtio_net;
+    'INSTANCE_PATH': value => $instance_path;
+    'VNET_BRIDGE': value => $vnet_bridge;
+    'VNET_DHCPDAEMON': value => $vnet_dhcpdaemon;
   }
 }
