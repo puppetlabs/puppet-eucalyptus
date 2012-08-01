@@ -16,13 +16,13 @@ end
 # the clustername is a sub dir that should be dynamic. keys for a cc and nc need
 # to be fetched from the appropriate cluster dir
 # for now, we're hard-coding a cluster name
-if File.directory?(eucakey_dir+'/cluster00')
-  keyfiles = Dir.entries(eucakey_dir+'/cluster00')
+if File.directory?(eucakey_dir+'/cluster1')
+  keyfiles = Dir.entries(eucakey_dir+'/cluster1')
   keyfiles.each do |name|
     if name.match(/\.pem/)
-      Facter.add("eucakeys_cluster00_#{name.sub('.pem','')}") do
+      Facter.add("eucakeys_cluster1_#{name.sub('.pem','')}") do
         setcode do
-          File.read("#{eucakey_dir}/cluster00/#{name}")
+          File.read("#{eucakey_dir}/cluster1/#{name}")
         end
       end
     end
