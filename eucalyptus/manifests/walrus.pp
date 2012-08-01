@@ -1,4 +1,4 @@
-class eucalyptus::walrus {
+class eucalyptus::walrus ($cloud_name = "cloud1") {
   Class[eucalyptus] -> Class[eucalyptus::walrus]
   package { 'eucalyptus-walrus':
     ensure => present,

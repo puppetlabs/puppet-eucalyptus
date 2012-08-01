@@ -9,19 +9,19 @@ class eucalyptus::ntp {
     require => Package['ntp'],
   }
 
-  exec { "stopntp":
-    command => "/etc/init.d/ntpd stop"
-  }
+#  exec { "stopntp":
+#    command => "/etc/init.d/ntpd stop"
+#  }
 
-  exec { "ntpdate":
-    command => "/usr/sbin/ntpdate pool.ntp.org",
-    require => [ File['/etc/ntp.conf'], Exec['stopntp'] ],
-  }
+#  exec { "ntpdate":
+#    command => "/usr/sbin/ntpdate pool.ntp.org",
+#    require => [ File['/etc/ntp.conf'], Exec['stopntp'] ],
+#  }
 
   service { 'ntpd':
     ensure => running,
     enable => true,
-    require => [ Package['ntp'], Exec['ntpdate'] ],
+#    require => [ Package['ntp'], Exec['ntpdate'] ],
   }
 
 }

@@ -1,4 +1,4 @@
-class eucalyptus::clc {
+class eucalyptus::clc ($cloud_name = "cloud1") {
   include eucalyptus::conf
 
   Class[eucalyptus] -> Class[eucalyptus::clc]
@@ -15,24 +15,24 @@ class eucalyptus::clc {
     enable => true,
     require => [ Package['eucalyptus-cloud'], Exec['init-db'] ],
   }
-  @@file { "${cloud_name}-cluster00-nc-cert":
+  @@file { "${cloud_name}-cluster1-nc-cert":
     path => '/var/lib/eucalyptus/keys/node-cert.pem',
-    content => "$eucakeys_cluster00_node-cert",
+    content => "$eucakeys_cluster1_node-cert",
     tag => "${cloud_name}",
   }
-  @@file { "${cloud_name}-cluster00-nc-pk":
+  @@file { "${cloud_name}-cluster1-nc-pk":
     path => '/var/lib/eucalyptus/keys/node-pk.pem',
-    content => "$eucakeys_cluster00_node-pk",
+    content => "$eucakeys_cluster1_node-pk",
     tag => "${cloud_name}",
   }
-  @@file { "${cloud_name}-cluster00-cc-cert":
+  @@file { "${cloud_name}-cluster1-cc-cert":
     path => '/var/lib/eucalyptus/keys/cluster-cert.pem',
-    content => "$eucakeys_cluster00_cluster-cert",
+    content => "$eucakeys_cluster1_cluster-cert",
     tag => "${cloud_name}",
   }
-  @@file { "${cloud_name}-cluster00-cc-pk":
+  @@file { "${cloud_name}-cluster1-cc-pk":
     path => '/var/lib/eucalyptus/keys/cluster-pk.pem',
-    content => "$eucakeys_cluster00_cluster-pk",
+    content => "$eucakeys_cluster1_cluster-pk",
     tag => "${cloud_name}",
   }
   @@file { "${cloud_name}-cloud-cert":
