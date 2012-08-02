@@ -13,9 +13,8 @@ class eucalyptus::cc ($cloud_name = "cloud1") {
   }
   Package[eucalyptus-cc] -> Eucalyptus_config<||> -> Service[eucalyptus-cc]
   Eucalyptus_config <||>
-  @@exec { 'reg-cc':
-  ## Hack warning! this ensures cc registered before sc, then exit code forced to 0 to make exec code happy
-    command => "/usr/sbin/euca_conf --no-rsync --register-cluster cluster1 $ipaddress; /usr/sbin/euca_conf --no-rsync --register-sc cluster1 $ipaddress; exit 0",
+  @@exec { "reg_cc_${hostname}":
+    command => "/usr/sbin/euca_conf --no-rsync --register-cluster cluster1 $ipaddress; exit 0",
     tag => "${cloud_name}",
   }
   File <<|title == "${cloud_name}-cloud-cert"|>>
