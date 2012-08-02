@@ -4,7 +4,7 @@ if File.directory?(eucakey_dir)
   keyfiles = Dir.entries(eucakey_dir)
   keyfiles.each do |name|
     if name.match(/\.pem/)
-      Facter.add("eucakeys_#{name.sub('.pem','')}") do
+      Facter.add("eucakeys_#{name.sub('.pem','').sub('-','_')}") do
         setcode do
           File.read("#{eucakey_dir}/#{name}")
         end
@@ -20,7 +20,7 @@ if File.directory?(eucakey_dir+'/cluster1')
   keyfiles = Dir.entries(eucakey_dir+'/cluster1')
   keyfiles.each do |name|
     if name.match(/\.pem/)
-      Facter.add("eucakeys_cluster1_#{name.sub('.pem','')}") do
+      Facter.add("eucakeys_cluster1_#{name.sub('.pem','').sub('-','_')}") do
         setcode do
           File.read("#{eucakey_dir}/cluster1/#{name}")
         end
