@@ -12,7 +12,7 @@ class eucalyptus::nc ($cloud_name = "cloud1") {
   }
   Package[eucalyptus-nc] -> Eucalyptus_config<||> -> Service[eucalyptus-nc]
   Eucalyptus_config <||>
-  @@exec { 'reg-nc':
+  @@exec { "reg_nc_${hostname}":
     command => "/usr/sbin/euca_conf --no-rsync --no-sync --no-scp --register-nodes $ipaddress_br0; exit 0",
     tag => "${cloud_name}",
   }
