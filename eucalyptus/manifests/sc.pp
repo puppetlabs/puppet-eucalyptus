@@ -4,6 +4,7 @@ class eucalyptus::sc ($cloud_name = "cloud1") {
     ensure => present,
   }
   @@exec { "reg_sc_${hostname}":
-    command => "/usr/sbin/euca_conf --no-rsync --register-sc cluster1 $ipaddress",
+    command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-sc cluster1 $ipaddress",
+    tag => "${cloud_name}",
   }
 }
