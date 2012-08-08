@@ -14,7 +14,7 @@ class eucalyptus::cc ($cloud_name = "cloud1") {
   Package[eucalyptus-cc] -> Eucalyptus_config<||> -> Service[eucalyptus-cc]
   Eucalyptus_config <||>
   @@exec { "reg_cc_${hostname}":
-    command => "/usr/sbin/euca_conf --no-rsync --register-cluster cluster1 $ipaddress; exit 0",
+    command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-cluster --partition cluster1 --host $ipaddress --component cc_$hostname; exit 0",
     tag => "${cloud_name}",
   }
   File <<|title == "${cloud_name}-cloud-cert"|>>
