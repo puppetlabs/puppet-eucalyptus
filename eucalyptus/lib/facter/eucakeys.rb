@@ -10,6 +10,14 @@ if File.directory?(eucakey_dir)
         end
       end
     end
+    if name.match(/\.p12/)
+      Facter.add("eucakeys_euca_p12") do
+        setcode do
+          File.read("#{eucakey_dir}/#{name}")
+        end
+      end
+    end
+
   end
 end
 ## this is TEMPORARY!
