@@ -25,7 +25,7 @@ class eucalyptus (
   $version = '3.1'
 )
 {
-  include eucalyptus::ntp
+#  include eucalyptus::ntp
   include eucalyptus::security
 
   file {'/etc/eucalyptus':
