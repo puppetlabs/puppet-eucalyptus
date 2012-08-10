@@ -22,6 +22,7 @@ class eucalyptus::cc ($cloud_name = "cloud1") {
   File <<|title == "${cloud_name}-cluster1-cc-cert"|>>
   File <<|title == "${cloud_name}-cluster1-cc-pk"|>>
   File <<|title == "${cloud_name}-cluster1-nc-cert"|>>
+  File <<|title == "${cloud_name}-cluster1-nc-pk"|>>
   # Register NC's from CC
   Exec <<|tag == "${cloud_name}_reg_nc"|>>
 }
