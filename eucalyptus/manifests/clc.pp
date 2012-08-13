@@ -25,7 +25,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       content => "$eucakeys_cluster1_node_cert",
       owner  => 'eucalyptus',
       group  => 'eucalyptus',
-      mode   => '0644',
+      mode   => '0700',
       tag => "${cloud_name}",
     }
     @@file { "${cloud_name}-cluster1-nc-pk":
@@ -33,7 +33,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       content => "$eucakeys_cluster1_node_pk",
       owner  => 'eucalyptus',
       group  => 'eucalyptus',
-      mode   => '0644',
+      mode   => '0700',
       tag => "${cloud_name}",
     }
     @@file { "${cloud_name}-cluster1-cc-cert":
@@ -41,7 +41,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       content => "$eucakeys_cluster1_cluster_cert",
       owner  => 'eucalyptus',
       group  => 'eucalyptus',
-      mode   => '0644',
+      mode   => '0700',
       tag => "${cloud_name}",
     }
     @@file { "${cloud_name}-cluster1-cc-pk":
@@ -49,7 +49,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       content => "$eucakeys_cluster1_cluster_pk",
       owner  => 'eucalyptus',
       group  => 'eucalyptus',
-      mode   => '0644',
+      mode   => '0700',
       tag => "${cloud_name}",
     }
     @@file { "${cloud_name}-cloud-cert":
