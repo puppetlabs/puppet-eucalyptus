@@ -9,7 +9,7 @@ class eucalyptus::walrus ($cloud_name = "cloud1") {
     require => Package['eucalyptus-walrus'],
   } 
   @@exec { "reg_walrus_${hostname}":
-    command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-walrus --partition walrus --host $ipaddress --component walrus_$hostname; exit 0",
+    command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-walrus --partition walrus --host $ipaddress --component walrus_$hostname",
     unless => "/usr/sbin/euca_conf --list-walruses | /bin/grep '$ipaddress[[:space:]]'",
     tag => "${cloud_name}",
   }
