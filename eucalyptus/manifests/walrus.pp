@@ -10,7 +10,7 @@ class eucalyptus::walrus ($cloud_name = "cloud1") {
   } 
   @@exec { "reg_walrus_${hostname}":
     command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-walrus --partition walrus --host $ipaddress --component walrus_$hostname; exit 0",
-    #unless => "/usr/sbin/euca_conf --list-walruses | tail -n+2",
+    unless => "/usr/sbin/euca_conf --list-walruses | /bin/grep '$ipaddress[[:space:]]'",
     tag => "${cloud_name}",
   }
   File <<|title == "${cloud_name}-euca.p12"|>>
