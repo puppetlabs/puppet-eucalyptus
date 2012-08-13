@@ -1,0 +1,25 @@
+resource <%= name %> {
+
+  on <%= host1 %> {
+    device    <%= device %>;
+    disk      <%= disk_host1 %>;
+    address   <%= ip1 %>:<%= port %>;
+    meta-disk internal;
+  }
+
+  on <%= host2 %> {
+    device    <%= device %>;
+    disk      <%= disk_host2 %>;
+    address   <%= ip2 %>:<%= port %>;
+    meta-disk internal;
+  }
+
+  syncer {
+    rate <%= rate %>;
+  }
+
+  net {
+    after-sb-0pri discard-zero-changes;
+    after-sb-1pri discard-secondary;
+  }
+}
