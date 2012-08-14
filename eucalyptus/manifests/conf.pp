@@ -13,6 +13,7 @@ class eucalyptus::conf(
     $disable_iscsi = "N",
     $disable_dns = "Y",
     $enable_ws_security = "Y",
+    $cloud_opts = "",
     $eucalyptus_loglevel = "DEBUG",
     $cc_port = "8774",
     $schedpolicy = "ROUNDROBIN",
@@ -43,13 +44,12 @@ class eucalyptus::conf(
     'DISABLE_ISCSI': value => $disable_iscsi;
     'DISABLE_DNS': value => $disable_dns;
     'ENABLE_WS_SECURITY': value => $enable_ws_security;
-#    'CLOUD_OPTS': value => "";
+    'CLOUD_OPTS': value => $cloud_opts;
     'LOGLEVEL': value => $eucalyptus_loglevel;
     'CC_PORT': value => $cc_port;
     'SCHEDPOLICY': value => $schedpolicy;
     'POWER_IDLETHRESH': value => $power_idlethresh;
     'POWER_WAKETHRESH': value => $power_wakethresh;
-#    'NODES': value => "";
     'NC_SERVICE': value => $nc_service;
     'NC_PORT': value => $nc_port;
     'HYPERVISOR': value => $hypervisor;
