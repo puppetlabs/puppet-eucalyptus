@@ -22,7 +22,7 @@ class eucalyptus::clc2 ($cloud_name = "cloud1") {
   class eucalyptus::clc2_reg {
     @@exec { "reg_clc_${hostname}":
       command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-cloud --partition eucalyptus --host $ipaddress --component clc_$hostname",
-      unless => "/usr/sbin/euca_conf --list-clouds | /bin/grep '$ipaddress[[:space:]]'",
+      unless => "/usr/sbin/euca_conf --list-clouds | /bin/grep '\b$ipaddress\b'",
       tag => "${cloud_name}",
     }
   }

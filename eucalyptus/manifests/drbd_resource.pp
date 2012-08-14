@@ -38,12 +38,12 @@
 # Use these commands on the primary walrus:
 #  drbdsetup /dev/drbd1 syncer -r 110M
 #  drbdadm -- --overwrite-data-of-peer primary r0
-#  mkfs.ext3 /dev/$device
+#  mkfs.ext4 /dev/$device
 #
 # You can avoid doing a full sync in dev/test by running:
 #  drbdadm -- --clear-bitmap new-current-uuid r0
 #  drbdadm primary r0
-#  mkfs.ext3 /dev/$device
+#  mkfs.ext4 /dev/$device
 #
 # == Authors
 # Tom Ellis <tom.ellis@eucalyptus.com\>

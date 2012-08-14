@@ -29,7 +29,7 @@ class eucalyptus::cc ($cloud_name = "cloud1") {
     Class[eucalyptus::cc_reg] -> Class[eucalyptus::cc_config]
     @@exec { "reg_cc_${hostname}":
       command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-cluster --partition cluster1 --host $ipaddress --component cc_$hostname",
-      unless  => "/usr/sbin/euca_conf --list-clusters | /bin/grep -q '$ipaddress[[:space:]]'",
+      unless  => "/usr/sbin/euca_conf --list-clusters | /bin/grep -q '\b$ipaddress\b'",
       tag => "${cloud_name}",
     }
     # Register NC's from CC

@@ -30,6 +30,6 @@ define eucalyptus::cloud_properties(
   # Exec using euca-modify-property
   exec { "cloud_property_${property_value}":
     command => "/usr/sbin/euca-modify-property -p $property_name=$property_value",
-    unless => "/usr/sbin/euca-describe-properties | /bin/awk '/$property_name/ {print \$3}' | /bin/grep $property_value",
+    unless  => "/usr/sbin/euca-describe-properties | /bin/grep -i '$property_name' | /bin/grep -qi '$property_value'",
   }
 }

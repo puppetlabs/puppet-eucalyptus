@@ -22,7 +22,7 @@ class eucalyptus::sc ($cloud_name = "cloud1") {
     Class[eucalyptus::sc_reg] -> Class[eucalyptus::sc_config]
     @@exec { "reg_sc_${hostname}":
       command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-sc --partition cluster1 --host $ipaddress --component sc_$hostname",
-      unless => "/usr/sbin/euca_conf --list-scs | /bin/grep '$ipaddress[[:space:]]'",
+      unless => "/usr/sbin/euca_conf --list-scs | /bin/grep '\b$ipaddress\b'",
       tag => "${cloud_name}",
     }
   }
