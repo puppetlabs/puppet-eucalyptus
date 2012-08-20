@@ -26,18 +26,20 @@ if File.directory?(eucakey_dir)
   end
 end
 
-# Check if entries in eucakey_dir are directories, if they are return them minus the . and .. entries
-dir_contents = Dir.entries(eucakey_dir).select {|entry| File.directory? File.join(eucakey_dir,entry) and !(entry =='.' || entry == '..') }
-# For each cluster directory, grab all pem files and set as facts making sure all fact names use underscores
-dir_contents.each do |clustername|
- keyfiles = Dir.entries(eucakey_dir+"/"+clustername)
- keyfiles.each do |keyname|
-   if keyname.match(/\.pem/)
-     Facter.add("eucakeys_" + clustername + "_#{keyname.sub('.pem','').sub('-','_')}") do
-       setcode do
-          File.read("#{eucakey_dir}/#{clustername}/#{keyname}")
-        end
+if File.directory?(eucakey_dir)
+  # Check if entries in eucakey_dir are directories, if they are return them minus the . and .. entries
+  dir_contents = Dir.entries(eucakey_dir).select {|entry| File.directory? File.join(eucakey_dir,entry) and !(entry =='.' || entry == '..') }
+  # For each cluster directory, grab all pem files and set as facts making sure all fact names use underscores
+  dir_contents.each do |clustername|
+   keyfiles = Dir.entries(eucakey_dir+"/"+clustername)
+   keyfiles.each do |keyname|
+     if keyname.match(/\.pem/)
+       Facter.add("eucakeys_" + clustername + "_#{keyname.sub('.pem','').sub('-','_')}") do
+         setcode do
+            File.read("#{eucakey_dir}/#{clustername}/#{keyname}")
+          end
+       end
      end
    end
- end
+  end
 end
