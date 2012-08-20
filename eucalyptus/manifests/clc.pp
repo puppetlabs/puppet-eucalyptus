@@ -20,38 +20,8 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       creates => "/var/lib/eucalyptus/db/data",
       timeout => "0",
     }
-    @@file { "${cloud_name}-cluster1-nc-cert":
-      path => '/var/lib/eucalyptus/keys/node-cert.pem',
-      content => "$eucakeys_cluster1_node_cert",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
-    }
-    @@file { "${cloud_name}-cluster1-nc-pk":
-      path => '/var/lib/eucalyptus/keys/node-pk.pem',
-      content => "$eucakeys_cluster1_node_pk",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
-    }
-    @@file { "${cloud_name}-cluster1-cc-cert":
-      path => '/var/lib/eucalyptus/keys/cluster-cert.pem',
-      content => "$eucakeys_cluster1_cluster_cert",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
-    }
-    @@file { "${cloud_name}-cluster1-cc-pk":
-      path => '/var/lib/eucalyptus/keys/cluster-pk.pem',
-      content => "$eucakeys_cluster1_cluster_pk",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
-    }
+
+    # Cloud-wide
     @@file { "${cloud_name}-cloud-cert":
       path => '/var/lib/eucalyptus/keys/cloud-cert.pem',
       content => "$eucakeys_cloud_cert",
