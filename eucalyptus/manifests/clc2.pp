@@ -15,7 +15,9 @@ class eucalyptus::clc2 ($cloud_name = "cloud1") {
   }
   class eucalyptus::clc2_config {
     Class[eucalyptus::clc2_install] -> Class[eucalyptus::clc2_config]
-    File <<|tag == "${cloud_name}"|>>
+    File <<|title == "${cloud_name}-cloud-cert"|>>
+    File <<|title == "${cloud_name}-cloud-pk"|>>
+    File <<|title == "${cloud_name}-euca.p12"|>>
     Package[eucalyptus-cloud] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
     Eucalyptus_config <||>
   }
