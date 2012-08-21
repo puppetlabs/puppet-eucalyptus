@@ -13,13 +13,11 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
     service { 'eucalyptus-cloud':
       ensure => running,
       enable => true,
-      require => Package['eucalyptus-cloud'],
     }
     
   }
   class eucalyptus::clc_config {
-    Class[eucalyptus::clc_install] -> Class[eucalyptus::clc_config]
-    Apt::Source<||> -> Package[eucalyptus-cloud] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
+    Apt::Source<||> -> Package['eucalyptus-cloud'] -> Exec['init-db'] ->  Service['eucalyptus-cloud']
     
     exec { 'init-db':
       command => "/usr/sbin/euca_conf --initialize",
