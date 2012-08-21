@@ -37,25 +37,23 @@ class eucalyptus::repo {
       }
     }
     ubuntu : {
-      # Check which version of Ubuntu
-      File{
-        owner   => "root",
-        group   => "root",
-        mode    => 644,
-      }
-      file{"/etc/apt/sources.list.d/eucalyptus.list":
-        content => "deb http://downloads.eucalyptus.com/software/eucalyptus/3.1/ubuntu ${lsbdistcodename} main\n",
-      }
-      file{"/etc/apt/sources.list.d/euca2ools.list":
-        content => "deb http://downloads.eucalyptus.com/software/euca2ools/2.1/ubuntu $lsbdistcodename main\n",
-      }
-      file{"/tmp/c1240596-eucalyptus-release-key.pub":
-        source => "puppet:///modules/eucalyptus/c1240596-eucalyptus-release-key.pub",
-      }
+      apt::source { 'euca2ools':
+  					location   => 'http://downloads.eucalyptus.com/software/eucalyptus/3.1/ubuntu',
+  					repos      => 'main',
+  					key        => 'c1240596',
+  					key_server => 'pgp.mit.edu',
+	  }
+	  apt::source { 'eucalyptus':
+  					location   => 'http://downloads.eucalyptus.com/software/eucalyptus/3.1/ubuntu',
+  					repos      => 'main',
+  					key        => 'c1240596',
+  					key_server => 'pgp.mit.edu',
+	  }
       exec {"update-repo":
         command => "/usr/bin/apt-key add /tmp/c1240596-eucalyptus-release-key.pub; /usr/bin/apt-get update",
         onlyif => "/usr/bin/test -f /etc/apt/sources.list.d/euca2ools.list",
       }
+      Apt::Source<||> -> Exec["update-repo"]
     }
   }
 }
