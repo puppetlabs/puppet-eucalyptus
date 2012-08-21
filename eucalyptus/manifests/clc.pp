@@ -17,7 +17,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
     
   }
   class eucalyptus::clc_config {
-    Apt::Source<||> -> Package['eucalyptus-cloud'] -> Exec['init-db'] ->  Service['eucalyptus-cloud']
+    Package['eucalyptus-cloud'] -> Exec['init-db'] ->  Service['eucalyptus-cloud'] -> Class[eucalyptus::clc_reg] 
     
     exec { 'init-db':
       command => "/usr/sbin/euca_conf --initialize",
@@ -54,9 +54,10 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
     Eucalyptus_config <||>
   }
   class eucalyptus::clc_reg {
-    Class[eucalyptus::clc_reg] -> Class[eucalyptus::clc_config]
+    Class[eucalyptus::clc_config] -> Class[eucalyptus::clc_reg] 
     Exec <<|tag == "$cloud_name"|>>
   }
-
+  
+   
   
 }
