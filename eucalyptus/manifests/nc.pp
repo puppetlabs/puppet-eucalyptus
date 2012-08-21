@@ -17,7 +17,7 @@ class eucalyptus::nc ($cloud_name = "cloud1") {
   @@exec { "${cluster_name}_reg_nc_${hostname}":
     command => "/usr/sbin/euca_conf --no-rsync --no-sync --no-scp --register-nodes $ipaddress",
     unless  => "/bin/grep -i '\b$ipaddress\b' /etc/eucalyptus/eucalyptus.conf",
-    tag     => "${cloud_name}_reg_nc",
+    tag     => "${cloud_name}_${cluster_name}_reg_nc",
   }
   File <<|title == "${cloud_name}-${cluster_name}-cc-cert"|>>
   File <<|title == "${cloud_name}-${cluster_name}-nc-cert"|>>
