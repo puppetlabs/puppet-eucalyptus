@@ -26,7 +26,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
     }
 
     # Cloud-wide
-    @@file { "${cloud_name}-cloud-cert":
+    @@file { "${cloud_name}_cloud_cert":
       path => '/var/lib/eucalyptus/keys/cloud-cert.pem',
       content => "$eucakeys_cloud_cert",
       owner  => 'eucalyptus',
@@ -34,7 +34,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       mode   => '0700',
       tag => "${cloud_name}",
     }
-    @@file { "${cloud_name}-cloud-pk":
+    @@file { "${cloud_name}_cloud_pk":
       path => '/var/lib/eucalyptus/keys/cloud-pk.pem',
       content => "$eucakeys_cloud_pk",
       owner  => 'eucalyptus',
@@ -42,7 +42,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       mode   => '0700',
       tag => "${cloud_name}",
     }
-    @@file { "${cloud_name}-euca.p12":
+    @@file { "${cloud_name}_euca.p12":
       path => '/var/lib/eucalyptus/keys/euca.p12',
       content => "$eucakeys_euca_p12",
       owner  => 'eucalyptus',

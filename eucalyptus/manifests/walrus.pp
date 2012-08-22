@@ -14,6 +14,6 @@ class eucalyptus::walrus ($cloud_name = "cloud1") {
     unless => "/usr/sbin/euca_conf --list-walruses | /bin/grep '\b$ipaddress\b'",
     tag => "${cloud_name}",
   }
-  File <<|title == "${cloud_name}-euca.p12"|>>
+  File <<|title == "${cloud_name}_euca.p12"|>>
   Package[eucalyptus-walrus] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
 }

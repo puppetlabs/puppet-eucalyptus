@@ -15,12 +15,12 @@ class eucalyptus::cc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
   }
 
   class eucalyptus::cc_config {
-    File <<|title == "${cloud_name}-cloud-cert"|>>
-    File <<|title == "${cloud_name}-cloud-pk"|>>
-    File <<|title == "${cloud_name}-${cluster_name}-cc-cert"|>>
-    File <<|title == "${cloud_name}-${cluster_name}-cc-pk"|>>
-    File <<|title == "${cloud_name}-${cluster_name}-nc-cert"|>>
-    File <<|title == "${cloud_name}-${cluster_name}-nc-pk"|>>
+    File <<|title == "${cloud_name}_cloud_cert"|>>
+    File <<|title == "${cloud_name}_cloud_pk"|>>
+    File <<|title == "${cloud_name}_${cluster_name}_cluster_cert"|>>
+    File <<|title == "${cloud_name}_${cluster_name}_cluster_pk"|>>
+    File <<|title == "${cloud_name}_${cluster_name}_node_cert"|>>
+    File <<|title == "${cloud_name}_${cluster_name}_node_pk"|>>
     Package[eucalyptus-cc] -> Eucalyptus_config<||> -> Service[eucalyptus-cc]
     Eucalyptus_config <||>
   }
