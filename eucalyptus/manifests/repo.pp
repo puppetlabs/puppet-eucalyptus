@@ -53,7 +53,7 @@ class eucalyptus::repo {
         command => "/usr/bin/apt-key add /tmp/c1240596-eucalyptus-release-key.pub; /usr/bin/apt-get update",
         onlyif => "/usr/bin/test -f /etc/apt/sources.list.d/euca2ools.list",
       }
-      Apt::Source<||> -> Exec["update-repo"]
+      Apt::Source<||> -> Exec["update-repo"] -> Package<||>
     }
   }
 }
