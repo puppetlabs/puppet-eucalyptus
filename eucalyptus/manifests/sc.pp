@@ -1,4 +1,4 @@
-class eucalyptus::sc ($cloud_name = "cloud1") {
+class eucalyptus::sc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
   
   Class[eucalyptus] -> Class[eucalyptus::sc]
 
