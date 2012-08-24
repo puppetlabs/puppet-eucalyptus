@@ -1,32 +1,63 @@
-class eucalyptus::conf
+class eucalyptus::conf(
+    # Default values for parameters not overriden in node definitions, try to stick to eucalyptus.conf defaults
+    $vnet_mode = "SYSTEM",
+    $vnet_subnet = "127.0.0.1",
+    $vnet_netmask = "255.255.255.0",
+    $vnet_dns = "8.8.8.8",
+    $vnet_addrspernet = "32",
+    $vnet_publicips = "192.168.0.50-192.168.0.250",
+    $vnet_privinterface = "eth1",
+    $vnet_pubinterface = "eth0",
+    $eucalyptus_dir = "/",
+    $eucalyptus_user = "eucalyptus",
+    $disable_iscsi = "N",
+    $disable_dns = "Y",
+    $enable_ws_security = "Y",
+    $cloud_opts = "",
+    $eucalyptus_loglevel = "DEBUG",
+    $cc_port = "8774",
+    $schedpolicy = "ROUNDROBIN",
+    $power_idlethresh = "0",
+    $power_wakethresh = "0",
+    $nc_service = "axis2/services/EucalyptusNC",
+    $nc_port = "8775",
+    $hypervisor = "kvm",    
+    $use_virtio_disk = "1",
+    $use_virtio_root = "1",
+    $use_virtio_net = "0",
+    $instance_path = "/var/lib/eucalyptus/instances",
+    $vnet_bridge = "br0",
+    $vnet_dhcpdaemon = "/usr/sbin/dhcpd41",
+)
 {
   @eucalyptus_config {
-    'VNET_MODE': value => $network_mode;
-    'VNET_SUBNET': value => $priv_subnet;
-    'VNET_NETMASK': value => $priv_netmask;
-    'VNET_DNS': value => $dns_server;
-    'VNET_ADDRSPERNET': value => $addrs_per_net;
-    'VNET_PUBLICIPS': value => $public_ip_range;
-    'EUCALYPTUS': value => "/";
-    'EUCA_USER': value => "eucalyptus";
-    'DISABLE_ISCSI': value => "N";
-    'DISABLE_DNS': value => "Y";
-    'ENABLE_WS_SECURITY': value => "Y";
-#    'CLOUD_OPTS': value => "";
-    'LOGLEVEL': value => "DEBUG";
-    'CC_PORT': value => "8774";
-    'SCHEDPOLICY': value => "ROUNDROBIN";
-    'POWER_IDLETHRESH': value => "300";
-    'POWER_WAKETHRESH': value => "300";
-#    'NODES': value => "";
-    'NC_SERVICE': value => "axis2/services/EucalyptusNC";
-    'NC_PORT': value => "8775";
-    'HYPERVISOR': value => "xen";
-    'USE_VIRTIO_DISK': value => "0";
-    'USE_VIRTIO_ROOT': value => "0";
-    'USE_VIRTIO_NET': value => "0";
-    'INSTANCE_PATH': value => "/usr/local/eucalyptus/";
-    'VNET_BRIDGE': value => "xenbr0";
-    'VNET_DHCPDAEMON': value => "/usr/sbin/dhcpd";
+    'VNET_MODE': value => $vnet_mode;
+    'VNET_SUBNET': value => $vnet_subnet;
+    'VNET_NETMASK': value => $vnet_netmask;
+    'VNET_DNS': value => $vnet_dns;
+    'VNET_ADDRSPERNET': value => $vnet_addrspernet;
+    'VNET_PUBLICIPS': value => $vnet_publicips;
+    'VNET_PRIVINTERFACE': value => $vnet_privinterface;
+    'VNET_PUBINTERFACE': value => $vnet_pubinterface;
+    'EUCALYPTUS': value => $eucalyptus_dir;
+    'EUCA_USER': value => $eucalyptus_user;
+    'DISABLE_ISCSI': value => $disable_iscsi;
+    'DISABLE_DNS': value => $disable_dns;
+    'ENABLE_WS_SECURITY': value => $enable_ws_security;
+    'CLOUD_OPTS': value => $cloud_opts;
+    'LOGLEVEL': value => $eucalyptus_loglevel;
+    'CC_PORT': value => $cc_port;
+    'SCHEDPOLICY': value => $schedpolicy;
+    'POWER_IDLETHRESH': value => $power_idlethresh;
+    'POWER_WAKETHRESH': value => $power_wakethresh;
+    'NC_SERVICE': value => $nc_service;
+    'NC_PORT': value => $nc_port;
+    'HYPERVISOR': value => $hypervisor;
+    'USE_VIRTIO_DISK': value => $use_virtio_disk;
+    'USE_VIRTIO_ROOT': value => $use_virtio_root;
+    'USE_VIRTIO_NET': value => $use_virtio_net;
+    'INSTANCE_PATH': value => $instance_path;
+    'VNET_BRIDGE': value => $vnet_bridge;
+    'VNET_DHCPDAEMON': value => $vnet_dhcpdaemon;
   }
 }

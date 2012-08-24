@@ -1,7 +1,6 @@
 class eucalyptus::ntp {
   package { 'ntp': ensure => present }
 
-  # ntpdate pool.ntp.org
   file { '/etc/ntp.conf':
     owner => 'root',
     group => 'root',
@@ -9,7 +8,20 @@ class eucalyptus::ntp {
     source => 'puppet:///modules/eucalyptus/ntp.conf',
     require => Package['ntp'],
   }
-  exec { "/usr/sbin/ntpdate pool.ntp.org":
-    require => File['/etc/ntp.conf'],
+
+#  exec { "stopntp":
+#    command => "/etc/init.d/ntpd stop"
+#  }
+
+#  exec { "ntpdate":
+#    command => "/usr/sbin/ntpdate pool.ntp.org",
+#    require => [ File['/etc/ntp.conf'], Exec['stopntp'] ],
+#  }
+
+  service { 'ntpd':
+    ensure => running,
+    enable => true,
+#    require => [ Package['ntp'], Exec['ntpdate'] ],
   }
+
 }

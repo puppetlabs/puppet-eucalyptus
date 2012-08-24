@@ -1,51 +1,63 @@
-class eucalyptus::clc {
+class eucalyptus::clc ($cloud_name = "cloud1") {
   include eucalyptus::conf
-
+  include eucalyptus
+  include eucalyptus::clc_install
+  include eucalyptus::clc_config
+  include eucalyptus::clc_reg
   Class[eucalyptus] -> Class[eucalyptus::clc]
 
-  package { 'eucalyptus-cloud':
-    ensure => present,
+  class eucalyptus::clc_install {
+    package { 'eucalyptus-cloud':
+      ensure => present,
+    }
+    service { 'eucalyptus-cloud':
+      ensure => running,
+      enable => true,
+    }
+    
   }
-  exec { 'init-db':
-    command => "/usr/sbin/euca_conf --initialize",
-    creates => "/var/lib/eucalyptus/db/data"
+  class eucalyptus::clc_config {
+    Package['eucalyptus-cloud'] -> Exec['init-db'] ->  Service['eucalyptus-cloud'] -> Class[eucalyptus::clc_reg] 
+    
+    exec { 'init-db':
+      command => "/usr/sbin/euca_conf --initialize",
+      creates => "/var/lib/eucalyptus/db/data",
+      timeout => "0",
+    }
+
+    # Cloud-wide
+    @@file { "${cloud_name}_cloud_cert":
+      path => '/var/lib/eucalyptus/keys/cloud-cert.pem',
+      content => "$eucakeys_cloud_cert",
+      owner  => 'eucalyptus',
+      group  => 'eucalyptus',
+      mode   => '0700',
+      tag => "${cloud_name}",
+    }
+    @@file { "${cloud_name}_cloud_pk":
+      path => '/var/lib/eucalyptus/keys/cloud-pk.pem',
+      content => "$eucakeys_cloud_pk",
+      owner  => 'eucalyptus',
+      group  => 'eucalyptus',
+      mode   => '0700',
+      tag => "${cloud_name}",
+    }
+    @@file { "${cloud_name}_euca.p12":
+      path => '/var/lib/eucalyptus/keys/euca.p12',
+      content => "$eucakeys_euca_p12",
+      owner  => 'eucalyptus',
+      group  => 'eucalyptus',
+      mode   => '0700',
+      tag => "${cloud_name}",
+    }
+    
+    Eucalyptus_config <||>
   }
-  service { 'eucalyptus-cloud':
-    ensure => running,
-    enable => true,
-    require => [ Package['eucalyptus-cloud'], Exec['init-db'] ],
+  class eucalyptus::clc_reg {
+    Class[eucalyptus::clc_config] -> Class[eucalyptus::clc_reg] 
+    Exec <<|tag == "$cloud_name"|>>
   }
-  @@file { "${cloud_name}-cluster00-nc-cert":
-    path => '/var/lib/eucalyptus/keys/node-cert.pem',
-    content => "$eucakeys_cluster00_node-cert",
-    tag => "${cloud_name}",
-  }
-  @@file { "${cloud_name}-cluster00-nc-pk":
-    path => '/var/lib/eucalyptus/keys/node-pk.pem',
-    content => "$eucakeys_cluster00_node-pk",
-    tag => "${cloud_name}",
-  }
-  @@file { "${cloud_name}-cluster00-cc-cert":
-    path => '/var/lib/eucalyptus/keys/cluster-cert.pem',
-    content => "$eucakeys_cluster00_cluster-cert",
-    tag => "${cloud_name}",
-  }
-  @@file { "${cloud_name}-cluster00-cc-pk":
-    path => '/var/lib/eucalyptus/keys/cluster-pk.pem',
-    content => "$eucakeys_cluster00_cluster-pk",
-    tag => "${cloud_name}",
-  }
-  @@file { "${cloud_name}-cloud-cert":
-    path => '/var/lib/eucalyptus/keys/cloud-cert.pem',
-    content => "$eucakeys_cloud-cert",
-    tag => "${cloud_name}",
-  }
-  @@file { "${cloud_name}-cloud-pk":
-    path => '/var/lib/eucalyptus/keys/cloud-pk.pem',
-    content => "$eucakeys_cloud-pk",
-    tag => "${cloud_name}",
-  }
-  Package[eucalyptus-cloud] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
-  Eucalyptus_config <||>
-  Exec <<|tag == "$cloud_name"|>>
+  
+   
+  
 }

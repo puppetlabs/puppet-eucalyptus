@@ -1,0 +1,8 @@
+name    'puppetlabs-eucalyptus'
+version '0.0.1'
+source  'https://github.com/puppetlabs/puppetlabs-eucalyptus'
+author  'Puppet Labs'
+license 'Apache License 2.0'
+summary 'Puppet Labs Eucalyptus Module'
+description 'Puppet module to install and configure Eucalyptus IaaS'
+project_page 'https://github.com/puppetlabs/puppetlabs-eucalyptus'
