@@ -8,6 +8,7 @@ class eucalyptus::security {
         }
       }
       exec {"disable-firewall":
+        onlyif  => "/usr/bin/test -f /etc/sysconfig/system-config-firewall",
         command => "/bin/sed --in-place=.bak 's/enabled/disabled/g' /etc/sysconfig/system-config-firewall",
         unless  => "/usr/bin/test -f /etc/sysconfig/system-config-firewall.bak",
       }
