@@ -1,5 +1,6 @@
 class eucalyptus::walrus ($cloud_name = "cloud1") {
   include eucalyptus
+  include eucalyptus::conf
   Class[eucalyptus] -> Class[eucalyptus::walrus]
   Class[eucalyptus::repo] -> Package[eucalyptus-walrus] -> Class[eucalyptus::walrus_config] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
 

@@ -1,6 +1,6 @@
 class eucalyptus::clc ($cloud_name = "cloud1") {
-  include eucalyptus::conf
   include eucalyptus
+  include eucalyptus::conf
   Class[eucalyptus] -> Class[eucalyptus::clc]
 
   class eucalyptus::clc_install {
