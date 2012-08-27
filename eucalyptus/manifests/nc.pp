@@ -1,26 +1,36 @@
 class eucalyptus::nc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
-  Class[eucalyptus] -> Class[eucalyptus::nc]
-
+  include eucalyptus
   include eucalyptus::conf
+  Class[eucalyptus] -> Class[eucalyptus::nc]
+  Class[eucalyptus::repo] -> Package[eucalyptus-nc] -> Class[eucalyptus::nc_config] -> Eucalyptus_config<||> -> Service[eucalyptus-nc]
 
-  package { 'eucalyptus-nc':
-    ensure => present,
+  class eucalyptus::nc_install {
+    package { 'eucalyptus-nc':
+      ensure => present,
+    }
+    service { 'eucalyptus-nc':
+      ensure => running,
+      enable => true,
+    }
   }
-  service { 'eucalyptus-nc':
-    ensure => running,
-    enable => true,
+
+  class eucalyptus::nc_config {
+    File <<|title == "${cloud_name}_${cluster_name}_cluster_cert"|>>
+    File <<|title == "${cloud_name}_${cluster_name}_node_cert"|>>
+    File <<|title == "${cloud_name}_${cluster_name}_node_pk"|>>
+    File <<|title == "${cloud_name}_cloud_cert"|>>
   }
-  Package[eucalyptus-nc] -> Eucalyptus_config<||> -> Service[eucalyptus-nc]
-  #Eucalyptus_config <||> { notify => Service["eucalyptus-nc"] }
-   # Causes too many service refreshes
-  Eucalyptus_config <||>
-  @@exec { "${cluster_name}_reg_nc_${hostname}":
-    command => "/usr/sbin/euca_conf --no-rsync --no-sync --no-scp --register-nodes $ipaddress",
-    unless  => "/bin/grep -i '\b$ipaddress\b' /etc/eucalyptus/eucalyptus.conf",
-    tag     => "${cloud_name}_${cluster_name}_reg_nc",
+
+  class eucalyptus::nc_reg {
+    #Eucalyptus_config <||> { notify => Service["eucalyptus-nc"] }
+    # Causes too many service refreshes
+    Eucalyptus_config <||>
+    @@exec { "${cluster_name}_reg_nc_${hostname}":
+      command => "/usr/sbin/euca_conf --no-rsync --no-sync --no-scp --register-nodes $ipaddress",
+      unless  => "/bin/grep -i '\b$ipaddress\b' /etc/eucalyptus/eucalyptus.conf",
+      tag     => "${cloud_name}_${cluster_name}_reg_nc",
+    }
   }
-  File <<|title == "${cloud_name}_${cluster_name}_cluster_cert"|>>
-  File <<|title == "${cloud_name}_${cluster_name}_node_cert"|>>
-  File <<|title == "${cloud_name}_${cluster_name}_node_pk"|>>
-  File <<|title == "${cloud_name}_cloud_cert"|>>
+
+  include eucalyptus::nc_install, eucalyptus::nc_config, eucalyptus::nc_reg
 }

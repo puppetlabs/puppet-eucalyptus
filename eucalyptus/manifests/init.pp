@@ -1,14 +1,5 @@
-# This is the baseclass for Eucalyptus installs. This class sets up the yum repos
-# for Eucalyptus and dependencies. 
-#
-# == Parameters
-#
-# [*version*] The version of Eucalyptus we are installing. Defaults to 3.1.
-#
-# == Examples
-#
-# class { eucalyptus: version => '3.1' }  
-#
+# This is the baseclass for Eucalyptus installs. This class the classes which 
+# set up the yum repos for Eucalyptus and its dependencies. 
 #
 # == Authors
 #
@@ -22,7 +13,5 @@
 #
 class eucalyptus 
 {
-  include eucalyptus::repo, eucalyptus::extrarepo
-  include eucalyptus::security
+  include eucalyptus::repo, eucalyptus::extrarepo, eucalyptus::security
 }
-
