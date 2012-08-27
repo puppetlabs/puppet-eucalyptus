@@ -1,6 +1,7 @@
 class eucalyptus::walrus ($cloud_name = "cloud1") {
   include eucalyptus
   Class[eucalyptus] -> Class[eucalyptus::walrus]
+  Class[eucalyptus::repo] -> Package[eucalyptus-walrus] -> Class[eucalyptus::walrus_config] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
 
   class eucalyptus::walrus_install {
     package { 'eucalyptus-walrus':
@@ -15,7 +16,6 @@ class eucalyptus::walrus ($cloud_name = "cloud1") {
   
   class eucalyptus::walrus_config {
     File <<|title == "${cloud_name}_euca.p12"|>>
-    Class[eucalyptus::repo] -> Package[eucalyptus-walrus] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
   }
 
   class eucalyptus::walrus_reg {
