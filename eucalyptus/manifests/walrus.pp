@@ -13,7 +13,7 @@ class eucalyptus::walrus ($cloud_name = "cloud1") {
     } 
   } 
   
-  class eucalyptus::walrus_conf {
+  class eucalyptus::walrus_config {
     File <<|title == "${cloud_name}_euca.p12"|>>
     Class[eucalyptus::repo] -> Package[eucalyptus-walrus] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
   }
