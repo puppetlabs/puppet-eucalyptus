@@ -1,8 +1,8 @@
 class eucalyptus::cc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
-
-  Class['eucalyptus'] -> Class[eucalyptus::cc]
-
+  include eucalyptus
   include eucalyptus::conf
+  Class[eucalyptus] -> Class[eucalyptus::cc]
+  Class[eucalyptus::repo] -> Package[eucalyptus-cc] -> Class[eucalyptus::cc_config] -> Eucalyptus_config<||> -> Service[eucalyptus-cc]
 
   class eucalyptus::cc_install {
     package { 'eucalyptus-cc':
@@ -21,8 +21,6 @@ class eucalyptus::cc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
     File <<|title == "${cloud_name}_${cluster_name}_cluster_pk"|>>
     File <<|title == "${cloud_name}_${cluster_name}_node_cert"|>>
     File <<|title == "${cloud_name}_${cluster_name}_node_pk"|>>
-    Package[eucalyptus-cc] -> Eucalyptus_config<||> -> Service[eucalyptus-cc]
-    Eucalyptus_config <||>
   }
 
   class eucalyptus::cc_reg {
