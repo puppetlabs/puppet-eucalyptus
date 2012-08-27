@@ -4,7 +4,10 @@ class eucalyptus::security {
   case $operatingsystem {
     centos, rhel : {
       if $selinux == 'true' {
-        exec { "/bin/sed --in-place=.bak 's/enforcing/disabled/g' /etc/selinux/config":
+        exec { "Disable SELinux":
+          onlyif  => "/usr/bin/test -f /etc/selinux/config",
+          command => "/bin/sed --in-place=.bak 's/enforcing/disabled/g' /etc/selinux/config",
+          unless  => "/usr/bin/test -f /etc/selinux/config.bak",
         }
       }
       exec {"disable-firewall":
@@ -15,7 +18,9 @@ class eucalyptus::security {
       service {"iptables":
         enable  => false,
       }
-      exec { "/bin/grep -v 'reject-with' /etc/sysconfig/iptables >/tmp/iptables; /bin/cp /tmp/iptables /etc/sysconfig":
+      exec { "preserve reject-with rules":
+        onlyif  => "/usr/bin/test -f /etc/sysconfig/iptables",
+        command => "/bin/grep -v 'reject-with' /etc/sysconfig/iptables >/tmp/iptables; /bin/cp /tmp/iptables /etc/sysconfig",
         unless  => "/usr/bin/test -f /tmp/iptables",
       }
     }
