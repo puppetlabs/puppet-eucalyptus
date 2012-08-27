@@ -1,9 +1,6 @@
 class eucalyptus::clc ($cloud_name = "cloud1") {
   include eucalyptus::conf
   include eucalyptus
-  include eucalyptus::clc_install
-  include eucalyptus::clc_config
-  include eucalyptus::clc_reg
   Class[eucalyptus] -> Class[eucalyptus::clc]
 
   class eucalyptus::clc_install {
@@ -58,6 +55,5 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
     Exec <<|tag == "$cloud_name"|>>
   }
   
-   
-  
+  include eucalyptus::clc_install, eucalyptus::clc_config, eucalyptus::clc_reg
 }
