@@ -1,7 +1,8 @@
 class eucalyptus::clc2 ($cloud_name = "cloud1") {
+  include eucalyptus
   include eucalyptus::conf
-
   Class[eucalyptus] -> Class[eucalyptus::clc2]
+  Class[eucalyptus::repo] -> Package[eucalyptus-cloud] -> Class[eucalyptus::clc2_config] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
 
   class eucalyptus::clc2_install {
     package { 'eucalyptus-cloud':
@@ -14,12 +15,9 @@ class eucalyptus::clc2 ($cloud_name = "cloud1") {
     }
   }
   class eucalyptus::clc2_config {
-    Class[eucalyptus::clc2_install] -> Class[eucalyptus::clc2_config]
     File <<|title == "${cloud_name}_cloud_cert"|>>
     File <<|title == "${cloud_name}_cloud_pk"|>>
     File <<|title == "${cloud_name}_euca.p12"|>>
-    Package[eucalyptus-cloud] -> Eucalyptus_config<||> -> Service[eucalyptus-cloud]
-    Eucalyptus_config <||>
   }
   class eucalyptus::clc2_reg {
     @@exec { "reg_clc_${hostname}":
