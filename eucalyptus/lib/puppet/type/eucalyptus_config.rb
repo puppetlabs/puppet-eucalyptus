@@ -3,14 +3,14 @@ Puppet::Type.newtype(:eucalyptus_config) do
   ensurable
 
   newparam(:name, :namevar => true) do
-    newvalues(/^\S+$/)
+    newvalues(/^\S+(.*?)$/)
   end
 
   newproperty(:value) do
     munge do |value|
       value.to_s
     end
-    newvalues(/^\S+$/)
+    newvalues(/^\S+(.*?)$/)
   end
 
   newproperty(:target) do
