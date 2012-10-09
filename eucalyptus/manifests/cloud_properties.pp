@@ -29,7 +29,9 @@ define eucalyptus::cloud_properties(
 ) {
   # Exec using euca-modify-property
   exec { "cloud_property_${property_name}":
-    command => "/usr/sbin/euca-modify-property -p $property_name=$property_value",
-    unless  => "/usr/sbin/euca-describe-properties | /bin/grep -i '$property_name' | /bin/grep -qi '$property_value'",
+    command   => "/usr/sbin/euca-modify-property -p $property_name=$property_value",
+    unless    => "/usr/sbin/euca-describe-properties | /bin/grep -i '$property_name' | /bin/grep -qi '$property_value'",
+    tries     => "3",
+    try_sleep => "2",
   }
 }
