@@ -43,6 +43,5 @@ define eucalyptus::arbitrator(
   eucalyptus::cloud_properties { "arbitrator_gateway_${partition_name}":
     property_name  => "$partition_name.arbitrator.gatewayhost",
     property_value => "$gateway_host",
-    unless         => "/usr/sbin/euca-describe/arbitrators | /bin/grep -i '$partition_name' | /bin/grep -qi '$service_host'",
   }
 }
