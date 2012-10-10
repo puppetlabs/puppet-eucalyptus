@@ -14,12 +14,12 @@ class eucalyptus::clc2 ($cloud_name = "cloud1") {
       require => Package['eucalyptus-cloud'],
     }
   }
-  class eucalyptus::clc2_config {
+  class eucalyptus::clc2_config inherits eucalyptus::clc2 {
     File <<|tag == "${cloud_name}_cloud_cert"|>>
     File <<|tag == "${cloud_name}_cloud_pk"|>>
     File <<|tag == "${cloud_name}_euca.p12"|>>
   }
-  class eucalyptus::clc2_reg {
+  class eucalyptus::clc2_reg inherits eucalyptus::clc2 {
     @@exec { "reg_clc_${hostname}":
       command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-cloud --partition eucalyptus --host $ipaddress --component clc_$hostname",
       unless => "/usr/sbin/euca_conf --list-clouds | /bin/grep '\b$ipaddress\b'",
