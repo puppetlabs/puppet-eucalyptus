@@ -29,7 +29,7 @@ class eucalyptus::conf(
     $vnet_bridge = "br0",
     $vnet_dhcpdaemon = "/usr/sbin/dhcpd41",
     $vnet_disable_tunneling = "y",
-    $cc_arbitrators = "",
+    $cc_arbitrators = "none",
 )
 {
   @eucalyptus_config {
