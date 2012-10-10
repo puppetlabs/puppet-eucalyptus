@@ -29,7 +29,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       owner   => 'eucalyptus',
       group   => 'eucalyptus',
       mode    => '0700',
-      tag     => "${cloud_name}",
+      tag     => "${cloud_name}_cloud_cert",
     }
     @@file { "${cloud_name}_cloud_pk":
       path    => '/var/lib/eucalyptus/keys/cloud-pk.pem',
@@ -37,7 +37,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       owner   => 'eucalyptus',
       group   => 'eucalyptus',
       mode    => '0700',
-      tag     => "${cloud_name}",
+      tag     => "${cloud_name}_cloud_cert",
     }
     @@file { "${cloud_name}_euca.p12":
       path    => '/var/lib/eucalyptus/keys/euca.p12',
@@ -45,7 +45,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
       owner   => 'eucalyptus',
       group   => 'eucalyptus',
       mode    => '0700',
-      tag     => "${cloud_name}",
+      tag     => "${cloud_name}_cloud_cert",
     }
     
     Eucalyptus_config <||>

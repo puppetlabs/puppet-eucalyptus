@@ -15,9 +15,9 @@ class eucalyptus::clc2 ($cloud_name = "cloud1") {
     }
   }
   class eucalyptus::clc2_config {
-    File <<|title == "${cloud_name}_cloud_cert"|>>
-    File <<|title == "${cloud_name}_cloud_pk"|>>
-    File <<|title == "${cloud_name}_euca.p12"|>>
+    File <<|tag == "${cloud_name}_cloud_cert"|>>
+    File <<|tag == "${cloud_name}_cloud_pk"|>>
+    File <<|tag == "${cloud_name}_euca.p12"|>>
   }
   class eucalyptus::clc2_reg {
     @@exec { "reg_clc_${hostname}":
