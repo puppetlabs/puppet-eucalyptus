@@ -37,7 +37,15 @@ if File.directory?(eucakey_dir)
        Facter.add("eucakeys_" + clustername + "_#{keyname.sub('.pem','').sub('-','_')}") do
          setcode do
             File.read("#{eucakey_dir}/#{clustername}/#{keyname}")
-          end
+         end
+       end
+     end
+     # Collect VPN tunnel passwords for VNET_TUNNELLING
+     if keyname.match(/vtunpass/)
+       Facter.add("eucakeys_" + clustername + "_#{keyname}") do
+         setcode do
+            File.read("#{eucakey_dir}/#{clustername}/#{keyname}")
+         end
        end
      end
    end

@@ -28,6 +28,8 @@ class eucalyptus::conf(
     $instance_path = "/var/lib/eucalyptus/instances",
     $vnet_bridge = "br0",
     $vnet_dhcpdaemon = "/usr/sbin/dhcpd41",
+    $vnet_disable_tunneling = "y",
+    $cc_arbitrators = "none",
 )
 {
   @eucalyptus_config {
@@ -59,5 +61,7 @@ class eucalyptus::conf(
     'INSTANCE_PATH': value => $instance_path;
     'VNET_BRIDGE': value => $vnet_bridge;
     'VNET_DHCPDAEMON': value => $vnet_dhcpdaemon;
+    'DISABLE_TUNNELING': value => $vnet_disable_tunneling;
+    'CC_ARBITRATORS': value => $cc_arbitrators;
   }
 }

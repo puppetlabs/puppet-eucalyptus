@@ -14,14 +14,14 @@ class eucalyptus::nc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
     }
   }
 
-  class eucalyptus::nc_config {
+  class eucalyptus::nc_config inherits eucalyptus::nc {
     File <<|title == "${cloud_name}_${cluster_name}_cluster_cert"|>>
     File <<|title == "${cloud_name}_${cluster_name}_node_cert"|>>
     File <<|title == "${cloud_name}_${cluster_name}_node_pk"|>>
     File <<|title == "${cloud_name}_cloud_cert"|>>
   }
 
-  class eucalyptus::nc_reg {
+  class eucalyptus::nc_reg inherits eucalyptus::nc {
     #Eucalyptus_config <||> { notify => Service["eucalyptus-nc"] }
     # Causes too many service refreshes
     Eucalyptus_config <||>

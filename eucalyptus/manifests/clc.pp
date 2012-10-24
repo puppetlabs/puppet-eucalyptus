@@ -13,7 +13,7 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
     }
     
   }
-  class eucalyptus::clc_config {
+  class eucalyptus::clc_config inherits eucalyptus::clc {
     Class[eucalyptus::repo] -> Package['eucalyptus-cloud'] -> Class[eucalyptus::conf] -> Exec['init-db'] ->  Service['eucalyptus-cloud'] -> Class[eucalyptus::clc_reg] 
     
     exec { 'init-db':
@@ -24,33 +24,33 @@ class eucalyptus::clc ($cloud_name = "cloud1") {
 
     # Cloud-wide
     @@file { "${cloud_name}_cloud_cert":
-      path => '/var/lib/eucalyptus/keys/cloud-cert.pem',
+      path    => '/var/lib/eucalyptus/keys/cloud-cert.pem',
       content => "$eucakeys_cloud_cert",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
+      owner   => 'eucalyptus',
+      group   => 'eucalyptus',
+      mode    => '0700',
+      tag     => "${cloud_name}_cloud_cert",
     }
     @@file { "${cloud_name}_cloud_pk":
-      path => '/var/lib/eucalyptus/keys/cloud-pk.pem',
+      path    => '/var/lib/eucalyptus/keys/cloud-pk.pem',
       content => "$eucakeys_cloud_pk",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
+      owner   => 'eucalyptus',
+      group   => 'eucalyptus',
+      mode    => '0700',
+      tag     => "${cloud_name}_cloud_pk",
     }
     @@file { "${cloud_name}_euca.p12":
-      path => '/var/lib/eucalyptus/keys/euca.p12',
+      path    => '/var/lib/eucalyptus/keys/euca.p12',
       content => "$eucakeys_euca_p12",
-      owner  => 'eucalyptus',
-      group  => 'eucalyptus',
-      mode   => '0700',
-      tag => "${cloud_name}",
+      owner   => 'eucalyptus',
+      group   => 'eucalyptus',
+      mode    => '0700',
+      tag     => "${cloud_name}_euca.p12",
     }
     
     Eucalyptus_config <||>
   }
-  class eucalyptus::clc_reg {
+  class eucalyptus::clc_reg inherits eucalyptus::clc {
     Class[eucalyptus::clc_config] -> Class[eucalyptus::clc_reg] 
     Exec <<|tag == "$cloud_name"|>>
   }

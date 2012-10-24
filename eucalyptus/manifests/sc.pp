@@ -15,11 +15,11 @@ class eucalyptus::sc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
     } 
   }
 
-  class eucalyptus::sc_config {
+  class eucalyptus::sc_config inherits eucalyptus::sc {
     File <<|title == "${cloud_name}_euca.p12"|>>
   }
 
-  class eucalyptus::sc_reg {
+  class eucalyptus::sc_reg inherits eucalyptus::sc {
     Class[eucalyptus::sc_reg] -> Class[eucalyptus::sc_config]
     @@exec { "reg_sc_${hostname}":
       command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-sc --partition ${cluster_name} --host $ipaddress --component sc_$hostname",
