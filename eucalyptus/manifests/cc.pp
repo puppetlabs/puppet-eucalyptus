@@ -14,7 +14,7 @@ class eucalyptus::cc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
     }
   }
 
-  class eucalyptus::cc_config {
+  class eucalyptus::cc_config inherits eucalyptus::cc {
     File <<|title == "${cloud_name}_cloud_cert"|>>
     File <<|title == "${cloud_name}_cloud_pk"|>>
     File <<|title == "${cloud_name}_${cluster_name}_cluster_cert"|>>
@@ -23,7 +23,7 @@ class eucalyptus::cc ($cloud_name = "cloud1", $cluster_name = "cluster1") {
     File <<|title == "${cloud_name}_${cluster_name}_node_pk"|>>
   }
 
-  class eucalyptus::cc_reg {
+  class eucalyptus::cc_reg inherits eucalyptus::cc {
     Class[eucalyptus::cc_reg] -> Class[eucalyptus::cc_config]
     @@exec { "reg_cc_${hostname}":
       command => "/usr/sbin/euca_conf --no-rsync --no-scp --no-sync --register-cluster --partition $cluster_name --host $ipaddress --component cc_$hostname",
